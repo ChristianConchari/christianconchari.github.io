@@ -7,7 +7,8 @@ import Header from "../components/Header.astro";
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/png" href="/src/assets/favicon.ico" media="(prefers-color-scheme: dark)" />
+        <link rel="icon" type="image/png" href="/src/assets/favicon-dark.ico" media="(prefers-color-scheme: light)" />
         <meta name="generator" content={Astro.generator} />
         <title>Christian Conchari</title>
     </head>
@@ -30,7 +31,7 @@ import Header from "../components/Header.astro";
         height: 100%;
         background-color: #0a0e27;
         color: #a0aec0;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
 
     /* Scrollbar styling */

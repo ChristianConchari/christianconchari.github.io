@@ -1,13 +1,32 @@
 ---
 import astroLogo from "../assets/astro.svg";
 import background from "../assets/background.svg";
+import heroLogo from "../assets/hero-logo-v1.png";
 ---
 
 <div id="container">
     <main>
         <section id="hero">
-            <h1>Hi! I'm <pre>Christian Conchari</pre></h1>
-            <h3>Website Coming Soon!</h3>
+            <div class="hero-content">
+                <h1>Hi! I'm <pre>Christian Conchari</pre></h1>
+                <h3>Software Architect | ML Engineer | Full-Stack Developer</h3>
+
+                <p>Working on scalable, and intelligent systems. Let's build something amazing together!</p>
+                <!-- <div id="links">
+                    <a href="https://github.com/chrisconchari" target="_blank">
+                        <img src={githubLogo} alt="GitHub" />
+                    </a>
+                    <a href="https://linkedin.com/in/chrisconchari" target="_blank">
+                        <img src={linkedinLogo} alt="LinkedIn" />
+                    </a>
+                    <a href="https://twitter.com/chrisconchari" target="_blank">
+                        <img src={twitterLogo} alt="Twitter" />
+                    </a>
+                </div> -->
+            </div>
+            <div class="hero-image">
+                <img src={heroLogo.src} alt="Hero Logo" />
+            </div>
         </section>
     </main>
 
@@ -31,19 +50,48 @@ import background from "../assets/background.svg";
             height: 100%;
             display: flex;
             justify-content: center;
+            align-items: center;
         }
 
         #hero {
-            display: flex;
-            align-items: start;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: center;
             justify-content: center;
-            padding: 16px;
+            padding: 20px;
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            z-index: 1;
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 110%;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(15, 244, 211, 0.2));
         }
 
         h1 {
-            font-size: 22px;
-            margin-top: 0.25em;
+            font-size: 48px;
+            margin-top: 0.5em;
+            font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono",
+                monospace;
+            font-weight: 500;
         }
 
         #links {
@@ -92,21 +140,33 @@ import background from "../assets/background.svg";
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin: 0;
+            font-weight: 500;
         }
 
         h2 {
             margin: 0 0 1em;
             font-weight: normal;
             color: #0a0e27;
-            font-size: 20px;
+            font-size: 36px;
+            font-weight: 500;
+        }
+
+        h3 {
+            margin: 0.8em 0;
+            font-size: 28px;
+            font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono",
+                monospace;
+            font-weight: 500;
         }
 
         p {
-            color: #4b5563;
-            font-size: 16px;
-            line-height: 24px;
-            letter-spacing: -0.006em;
-            margin: 0;
+            font-size: 24px;
+            line-height: 28px;
+            letter-spacing: -0.003em;
+            margin: 0.1em 0;
+            font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono",
+                monospace;
+            max-width: 60ch;
         }
 
         code {
@@ -153,8 +213,20 @@ import background from "../assets/background.svg";
             }
 
             #hero {
-                display: block;
+                display: flex;
+                flex-direction: column-reverse;
+                display: flex;
+                flex-direction: column;
                 padding-top: 10%;
+                gap: 20px;
+            }
+
+            .hero-image {
+                margin-top: 20px;
+            }
+
+            .hero-image img {
+                max-height: 250px;
             }
 
             #links {
