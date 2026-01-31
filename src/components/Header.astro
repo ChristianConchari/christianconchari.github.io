@@ -1,294 +1,87 @@
 ---
+import '../styles/global.css';
+import HeaderInitials from './HeaderInitials.astro';
+import MenuIcon from '../assets/icons/menu.svg';
 interface Props {
-    activeSection?: string;
+  activeSection?: string;
 }
 
 const { activeSection } = Astro.props;
 
 const navItems = [
-    { number: "01", label: "About Me", href: "#about" },
-    { number: "02", label: "Experience", href: "#experience" },
-    { number: "03", label: "Projects", href: "#projects" },
-    { number: "04", label: "Publications", href: "#publications" },
-    { number: "05", label: "Contact", href: "#contact" },
+  { number: '01', label: 'About Me', href: '#about' },
+  { number: '02', label: 'Experience', href: '#experience' },
+  { number: '03', label: 'Projects', href: '#projects' },
+  { number: '04', label: 'Publications', href: '#publications' },
+  { number: '05', label: 'Contact', href: '#contact' },
 ];
 ---
 
 <header>
-    <div class="header-container">
-        <div class="logo">
-            <span class="logo-icon">CC</span>
-        </div>
+  <div
+    class="flex items-center justify-between gap-2 p-4 md:gap-4 md:px-6 md:py-4 lg:gap-8"
+  >
+    <HeaderInitials />
 
-        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+    <!-- Menu Toggle (Mobile) -->
+    <button
+      class="group flex cursor-pointer flex-col gap-[5px] border-none bg-transparent p-0 md:hidden"
+      id="menuToggle"
+      aria-label="Toggle menu"
+    >
+      <span class="text-teal-400 [&>svg]:h-5 [&>svg]:w-5"><MenuIcon /></span>
+    </button>
 
-        <nav class="nav-menu" id="navMenu">
-            <ul>
-                {
-                    navItems.map((item) => (
-                        <li>
-                            <a href={item.href} class={`nav-link ${activeSection === item.label ? "active" : ""}`}>
-                                <span class="nav-number">{item.number}</span>
-                                <span class="nav-label">{item.label}</span>
-                            </a>
-                        </li>
-                    ))
-                }
-            </ul>
-        </nav>
+    <!-- Nav Menu -->
+    <nav
+      class="absolute top-15 right-0 left-0 z-50 max-h-0 overflow-hidden border-b bg-[#0a0e27] transition-[max-height] duration-300 md:static md:flex md:max-h-none md:flex-1 md:overflow-visible md:border-none md:bg-transparent [&.active]:max-h-105"
+      id="navMenu"
+    >
+      <ul
+        class="m-0 flex list-none flex-col gap-0 p-4 text-slate-400 md:flex-row md:gap-8 md:p-0"
+      >
+        {
+          navItems.map((item) => (
+            <li class="border-primary/10 border-b py-3 last:border-none md:border-none md:py-0">
+              <a
+                href={item.href}
+                class="lg:text-1xl flex flex-col items-start gap-1 font-mono whitespace-nowrap transition-colors duration-300 md:flex-row md:items-center md:gap-2 md:text-xl"
+              >
+                <span class="inline text-xl font-bold text-teal-400 md:hidden lg:inline">
+                  {item.number}
+                </span>
+                <span class="text-teal-500">{item.label}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
 
-        <a href="#resume" class="resume-btn">Resume</a>
-    </div>
+    <a
+      href="#resume"
+      class="border-primary text-primary hover:bg-primary/10 shrink-0 cursor-pointer rounded-xl border-2 px-3 py-1.5 font-mono text-sm no-underline transition-all duration-300 md:px-4 md:py-2 md:text-xs lg:px-6 lg:py-3 lg:text-lg"
+    >
+      Resume
+    </a>
+  </div>
 </header>
 
 <script>
-    const menuToggle = document.getElementById("menuToggle");
-    const navMenu = document.getElementById("navMenu");
+  const menuToggle = document.getElementById('menuToggle');
+  const navMenu = document.getElementById('navMenu');
 
-    menuToggle?.addEventListener("click", () => {
-        navMenu?.classList.toggle("active");
-        menuToggle.classList.toggle("active");
-    });
+  menuToggle?.addEventListener('click', () => {
+    navMenu?.classList.toggle('active');
+    menuToggle.classList.toggle('active');
+  });
 
-    // Close menu when a link is clicked
-    const navLinks = document.querySelectorAll(".nav-link");
-    navLinks.forEach((link) => {
-        link.addEventListener("click", () => {
-            navMenu?.classList.remove("active");
-            menuToggle?.classList.remove("active");
-        });
+  // Close menu when a link is clicked
+  const navLinks = document.querySelectorAll("a[href^='#']");
+  navLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      navMenu?.classList.remove('active');
+      menuToggle?.classList.remove('active');
     });
+  });
 </script>
-
-<style>
-    header {
-        background-color: #0a0e27;
-        border-bottom: 1px solid rgba(15, 244, 211, 0.1);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-    }
-
-    .header-container {
-        max-width: 100%;
-        margin: 0 auto;
-        padding: 1.5rem 2.5rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 4rem;
-    }
-
-    .logo {
-        flex-shrink: 0;
-    }
-
-    .logo-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 50px;
-        height: 50px;
-        border: 2px solid #0ff4d3;
-        border-radius: 6px;
-        color: #0ff4d3;
-        font-weight: 700;
-        font-size: 1.35rem;
-        font-family: "Courier New", monospace;
-    }
-
-    .menu-toggle {
-        display: none;
-        flex-direction: column;
-        background: none;
-        border: none;
-        cursor: pointer;
-        gap: 5px;
-        padding: 0;
-    }
-
-    .menu-toggle span {
-        width: 25px;
-        height: 2px;
-        background-color: #0ff4d3;
-        transition: all 0.3s ease;
-        border-radius: 2px;
-    }
-
-    .menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(10px, 10px);
-    }
-
-    .menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -7px);
-    }
-
-    .nav-menu {
-        flex: 1;
-    }
-
-    .nav-menu ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        gap: 2rem;
-    }
-
-    .nav-link {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        text-decoration: none;
-        color: #a0aec0;
-        font-size: 1.25rem;
-        font-family: "Courier New", monospace;
-        transition: color 0.3s ease;
-        white-space: nowrap;
-    }
-
-    .nav-link:hover,
-    .nav-link.active {
-        color: #0ff4d3;
-    }
-
-    .nav-number {
-        color: #0ff4d3;
-        font-weight: 600;
-    }
-
-    .nav-label {
-        color: inherit;
-    }
-
-    .resume-btn {
-        flex-shrink: 0;
-        padding: 0.75rem 1.5rem;
-        border: 2px solid #0ff4d3;
-        color: #0ff4d3;
-        text-decoration: none;
-        border-radius: 12px;
-        font-size: 1.25rem;
-        font-family: "Courier New", monospace;
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
-
-    .resume-btn:hover {
-        background-color: rgba(15, 244, 211, 0.1);
-    }
-
-    @media (max-width: 1024px) {
-        .header-container {
-            gap: 2rem;
-        }
-
-        .nav-menu ul {
-            gap: 1.5rem;
-        }
-
-        .nav-link {
-            font-size: 1rem;
-        }
-
-        .nav-number {
-            display: none;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .header-container {
-            padding: 1rem 1.5rem;
-            gap: 1rem;
-        }
-
-        .menu-toggle {
-            display: flex;
-        }
-
-        .nav-menu {
-            position: absolute;
-            top: 70px;
-            left: 0;
-            right: 0;
-            background-color: #0a0e27;
-            border-bottom: 1px solid rgba(15, 244, 211, 0.1);
-            max-height: 80vh;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .nav-menu.active {
-            max-height: 300px;
-        }
-
-        .nav-menu ul {
-            flex-direction: column;
-            gap: 0;
-            padding: 1rem 1.5rem;
-        }
-
-        .nav-menu li {
-            border-bottom: 1px solid rgba(15, 244, 211, 0.1);
-            padding: 0.75rem 0;
-        }
-
-        .nav-menu li:last-child {
-            border-bottom: none;
-        }
-
-        .nav-link {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 0.25rem;
-            font-size: 0.9rem;
-        }
-
-        .nav-number {
-            display: inline;
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            font-size: 1rem;
-        }
-
-        .resume-btn {
-            padding: 0.5rem 1rem;
-            font-size: 0.75rem;
-            flex-shrink: 0;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .header-container {
-            padding: 1rem;
-            gap: 0.5rem;
-        }
-
-        .logo-icon {
-            width: 28px;
-            height: 28px;
-            font-size: 0.9rem;
-        }
-
-        .resume-btn {
-            padding: 0.4rem 0.8rem;
-            font-size: 0.7rem;
-        }
-
-        .menu-toggle span {
-            width: 20px;
-            height: 1.5px;
-        }
-    }
-</style>

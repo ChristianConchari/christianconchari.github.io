@@ -1,252 +1,44 @@
 ---
-import astroLogo from "../assets/astro.svg";
-import background from "../assets/background.svg";
-import heroLogo from "../assets/hero-logo-v1.png";
+import astroLogo from '../assets/astro.svg';
+import background from '../assets/background.svg';
+import heroLogo from '../assets/hero-logo-v1.png';
 ---
 
-<div id="container">
-    <main>
-        <section id="hero">
-            <div class="hero-content">
-                <h1>Hi! I'm <pre>Christian Conchari</pre></h1>
-                <h3>Software Architect | ML Engineer | Full-Stack Developer</h3>
+<div class="h-full font-sans md:flex md:flex-col lg:block">
+  <main class="flex h-full items-center justify-center">
+    <section
+      class="grid w-full max-w-[1400px] grid-cols-1 items-center justify-center gap-4 pl-10 md:grid-cols-2 md:pt-0"
+    >
+      <div class="z-10 flex flex-col items-start">
+        <h1
+          class="mt-2 font-mono text-5xl font-medium text-teal-500 max-md:leading-snug md:leading-[1.1]"
+        >
+          Hi! I'm <p class="font-semibold text-teal-300">Christian Conchari</p>
+        </h1>
+        <h3 class="my-4 font-mono text-3xl font-medium text-teal-500">
+          Software Architect | ML Engineer | Full-Stack Developer
+        </h3>
 
-                <p>Working on scalable, and intelligent systems. Let's build something amazing together!</p>
-                <!-- <div id="links">
-                    <a href="https://github.com/chrisconchari" target="_blank">
-                        <img src={githubLogo} alt="GitHub" />
-                    </a>
-                    <a href="https://linkedin.com/in/chrisconchari" target="_blank">
-                        <img src={linkedinLogo} alt="LinkedIn" />
-                    </a>
-                    <a href="https://twitter.com/chrisconchari" target="_blank">
-                        <img src={twitterLogo} alt="Twitter" />
-                    </a>
-                </div> -->
-            </div>
-            <div class="hero-image">
-                <img src={heroLogo.src} alt="Hero Logo" />
-            </div>
-        </section>
-    </main>
-
-    <style>
-        #background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            filter: blur(100px);
-        }
-
-        #container {
-            font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
-            height: 100%;
-        }
-
-        main {
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #hero {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            max-width: 1400px;
-            width: 100%;
-        }
-
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            z-index: 1;
-        }
-
-        .hero-image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .hero-image img {
-            width: 110%;
-            height: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 0 20px rgba(15, 244, 211, 0.2));
-        }
-
-        h1 {
-            font-size: 48px;
-            margin-top: 0.5em;
-            font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono",
-                monospace;
-            font-weight: 500;
-        }
-
-        #links {
-            display: flex;
-            gap: 16px;
-        }
-
-        #links a {
-            display: flex;
-            align-items: center;
-            padding: 10px 12px;
-            color: #0ff4d3;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        #links a:hover {
-            color: #0dd4b3;
-        }
-
-        #links a svg {
-            height: 1em;
-            margin-left: 8px;
-        }
-
-        #links a.button {
-            color: white;
-            background: linear-gradient(83.21deg, #0ff4d3 0%, #0dd4b3 100%);
-            box-shadow:
-                inset 0 0 0 1px rgba(15, 244, 211, 0.3),
-                inset 0 -2px 0 rgba(0, 0, 0, 0.24);
-            border-radius: 10px;
-        }
-
-        #links a.button:hover {
-            color: rgb(230, 230, 230);
-            box-shadow: none;
-        }
-
-        pre {
-            font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono",
-                monospace;
-            font-weight: normal;
-            background: linear-gradient(14deg, #0ff4d3 0%, #0dd4b3 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 0;
-            font-weight: 500;
-        }
-
-        h2 {
-            margin: 0 0 1em;
-            font-weight: normal;
-            color: #0a0e27;
-            font-size: 36px;
-            font-weight: 500;
-        }
-
-        h3 {
-            margin: 0.8em 0;
-            font-size: 28px;
-            font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono",
-                monospace;
-            font-weight: 500;
-        }
-
-        p {
-            font-size: 24px;
-            line-height: 28px;
-            letter-spacing: -0.003em;
-            margin: 0.1em 0;
-            font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono",
-                monospace;
-            max-width: 60ch;
-        }
-
-        code {
-            display: inline-block;
-            background:
-                linear-gradient(66.77deg, #0ff4d3 0%, #0dd4b3 100%) padding-box,
-                linear-gradient(155deg, #0ff4d3 0%, #0dd4b3 18%, #0ff4d3 45%) border-box;
-            border-radius: 8px;
-            border: 1px solid transparent;
-            padding: 6px 8px;
-        }
-
-        .box {
-            padding: 16px;
-            background: rgba(255, 255, 255, 1);
-            border-radius: 16px;
-            border: 1px solid white;
-        }
-
-        #news {
-            position: absolute;
-            bottom: 16px;
-            right: 16px;
-            max-width: 300px;
-            text-decoration: none;
-            transition: background 0.2s;
-            backdrop-filter: blur(50px);
-        }
-
-        #news:hover {
-            background: rgba(255, 255, 255, 0.55);
-        }
-
-        @media screen and (max-height: 368px) {
-            #news {
-                display: none;
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            #container {
-                display: flex;
-                flex-direction: column;
-            }
-
-            #hero {
-                display: flex;
-                flex-direction: column-reverse;
-                display: flex;
-                flex-direction: column;
-                padding-top: 10%;
-                gap: 20px;
-            }
-
-            .hero-image {
-                margin-top: 20px;
-            }
-
-            .hero-image img {
-                max-height: 250px;
-            }
-
-            #links {
-                flex-wrap: wrap;
-            }
-
-            #links a.button {
-                padding: 14px 18px;
-            }
-
-            #news {
-                right: 16px;
-                left: 16px;
-                bottom: 2.5rem;
-                max-width: 100%;
-            }
-
-            h1 {
-                line-height: 1.5;
-            }
-        }
-    </style>
+        <p
+          class="my-1 max-w-[60ch] font-mono text-2xl leading-7 tracking-tight text-teal-400"
+        >
+          Working on scalable, and intelligent systems. Let's build something
+          amazing together!
+        </p>
+        <!-- <div id="links" class="flex gap-4">
+            <a href="https://github.com/chrisconchari" target="_blank" class="flex items-center p-3 text-[#0ff4d3] transition-colors hover:text-[#0dd4b3]">
+                <img src={githubLogo} alt="GitHub" class="h-4 ml-2" />
+            </a>
+            ...
+        </div> -->
+      </div>
+      <div class="relative mt-4 flex items-center justify-center md:mt-0">
+        <img
+          src={heroLogo.src}
+          alt="Hero Logo"
+          class="h-auto object-contain drop-shadow-[0_0_20px_rgba(34,211,238,0.2)] max-md:max-h-[250px]"
+        />
+      </div>
+    </section>
+  </main>
 </div>
