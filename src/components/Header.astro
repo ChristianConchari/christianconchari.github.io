@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import HeaderInitials from './HeaderInitials.astro';
+import ThemeToggle from './ThemeToggle.astro';
 import MenuIcon from '../assets/icons/menu.svg';
 interface Props {
   activeSection?: string;
@@ -34,7 +35,7 @@ const navItems = [
 
     <!-- Nav Menu -->
     <nav
-      class="absolute top-15 right-0 left-0 z-50 max-h-0 overflow-hidden border-b bg-[#0a0e27] transition-[max-height] duration-300 md:static md:flex md:max-h-none md:flex-1 md:overflow-visible md:border-none md:bg-transparent [&.active]:max-h-105"
+      class="bg-background-light dark:bg-background-dark absolute top-15 right-0 left-0 z-50 max-h-0 overflow-hidden border-b transition-[max-height] duration-300 md:static md:flex md:max-h-none md:flex-1 md:overflow-visible md:border-none md:bg-transparent [&.active]:max-h-105"
       id="navMenu"
     >
       <ul
@@ -58,12 +59,15 @@ const navItems = [
       </ul>
     </nav>
 
-    <a
-      href="#resume"
-      class="border-primary text-primary hover:bg-primary/10 shrink-0 cursor-pointer rounded-xl border-2 px-3 py-1.5 font-mono text-sm no-underline transition-all duration-300 md:px-4 md:py-2 md:text-xs lg:px-6 lg:py-3 lg:text-lg"
-    >
-      Resume
-    </a>
+    <div class="flex items-center gap-2 md:gap-4">
+      <ThemeToggle />
+      <a
+        href="#resume"
+        class="border-primary text-primary hover:bg-primary/10 shrink-0 cursor-pointer rounded-xl border-2 px-3 py-1.5 font-mono text-sm no-underline transition-all duration-300 md:px-4 md:py-2 md:text-xs lg:px-6 lg:py-3 lg:text-lg"
+      >
+        Resume
+      </a>
+    </div>
   </div>
 </header>
 
