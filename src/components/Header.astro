@@ -18,7 +18,9 @@ const navItems = [
 ];
 ---
 
-<header>
+<header
+  class="bg-background-light dark:bg-background-dark transition-colors duration-300"
+>
   <div
     class="flex items-center justify-between gap-2 p-4 md:gap-4 md:px-6 md:py-4 lg:gap-8"
   >
@@ -35,7 +37,7 @@ const navItems = [
 
     <!-- Nav Menu -->
     <nav
-      class="bg-background-light dark:bg-background-dark absolute top-15 right-0 left-0 z-50 max-h-0 overflow-hidden border-b transition-[max-height] duration-300 md:static md:flex md:max-h-none md:flex-1 md:overflow-visible md:border-none md:bg-transparent [&.active]:max-h-105"
+      class="bg-background-light dark:bg-background-dark absolute top-15 right-0 left-0 z-50 max-h-0 overflow-hidden border-b transition-[max-height,background-color] duration-300 md:static md:flex md:max-h-none md:flex-1 md:overflow-visible md:border-none [&.active]:max-h-105"
       id="navMenu"
     >
       <ul
@@ -51,7 +53,9 @@ const navItems = [
                 <span class="inline text-xl font-bold text-teal-400 md:hidden lg:inline">
                   {item.number}
                 </span>
-                <span class="text-teal-500">{item.label}</span>
+                <span class="font-bold text-gray-600 dark:text-gray-400">
+                  {item.label}
+                </span>
               </a>
             </li>
           ))
