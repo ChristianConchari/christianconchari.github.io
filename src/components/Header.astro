@@ -28,7 +28,7 @@ const navItems = [
 
     <!-- Menu Toggle (Mobile) -->
     <button
-      class="group flex cursor-pointer flex-col gap-[5px] border-none bg-transparent p-0 md:hidden"
+      class="group flex cursor-pointer flex-col gap-1.25 border-none bg-transparent p-0 md:hidden"
       id="menuToggle"
       aria-label="Toggle menu"
     >
@@ -41,7 +41,7 @@ const navItems = [
       id="navMenu"
     >
       <ul
-        class="m-0 flex list-none flex-col gap-0 p-4 text-slate-400 md:flex-row md:gap-8 md:p-0"
+        class="m-0 flex list-none flex-col gap-0 p-4 text-gray-800 md:flex-row md:gap-8 md:p-0"
       >
         {
           navItems.map((item) => (
@@ -53,7 +53,7 @@ const navItems = [
                 <span class="inline text-xl font-bold text-teal-400 md:hidden lg:inline">
                   {item.number}
                 </span>
-                <span class="font-bold text-gray-600 dark:text-gray-400">
+                <span class="font-bold text-gray-800 dark:text-gray-100">
                   {item.label}
                 </span>
               </a>
