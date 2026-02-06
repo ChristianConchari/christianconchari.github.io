@@ -2,10 +2,11 @@
 import astroLogo from '../assets/astro.svg';
 import background from '../assets/background.svg';
 import heroLogo from '../assets/hero-logo-v1.png';
+import ScrollIndicator from './ScrollIndicator.astro';
 ---
 
 <div class="h-full font-sans md:flex md:flex-col md:justify-center">
-  <main class="flex flex-col h-full items-center justify-center">
+  <main class="relative flex flex-col h-full items-center justify-center">
     <section
       class="grid w-full max-w-350 grid-cols-1 items-center justify-center gap-4 px-16"
       id="heroTitleSection"
@@ -18,7 +19,8 @@ import heroLogo from '../assets/hero-logo-v1.png';
           class="mt-14 font-mono text-2xl font-medium text-teal-500 md:text-3xl md:mt-24"
           id="heroGreeting"
         >
-          Hi! I'm <p class="text-black font-extrabold text-5xl my-5 dark:text-gray-100 md:text-8xl md:w-150 md:my-8">Christian Conchari</p>
+          Hi! I'm <p class="text-gray-800 font-extrabold text-5xl my-5 dark:text-gray-100 md:text-8xl md:w-150 md:my-8">Christian Conchari
+          </p>
         </h1>
 
         <h3 
@@ -53,5 +55,6 @@ import heroLogo from '../assets/hero-logo-v1.png';
         View Portfolio
       </button>
     </section>
+    <ScrollIndicator targetId="about"/>
   </main>
 </div>
