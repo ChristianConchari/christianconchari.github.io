@@ -1,0 +1,169 @@
+---
+interface Skill {
+  name: string;
+}
+
+interface SkillCategory {
+  label: string;
+  skills: Skill[];
+}
+
+interface SkillGroup {
+  category: string;
+  columns: SkillCategory[];
+}
+
+const skillGroups: SkillGroup[] = [
+  {
+    category: 'FRONTEND',
+    columns: [
+      { label: '', skills: [{ name: 'JavaScript (ES6+)' }, { name: 'TypeScript' }, { name: 'Angular' }] },
+      { label: '', skills: [{ name: 'Astro' }, { name: 'Tailwind CSS' }, { name: 'Flutter' }] },
+    ],
+  },
+  {
+    category: 'BACKEND',
+    columns: [
+      { label: '', skills: [{ name: 'FastAPI' }, { name: 'PostgreSQL' }] },
+      { label: '', skills: [{ name: 'NestJS' }, { name: 'GraphQL' }] },
+    ],
+  },
+  {
+    category: 'MACHINE LEARNING',
+    columns: [
+      { label: '', skills: [{ name: 'TensorFlow' }, { name: 'Scikit-learn' }] },
+      { label: '', skills: [{ name: 'PyTorch' }, { name: 'Keras' }] },
+    ],
+  },
+  {
+    category: 'DEVOPS & CLOUD',
+    columns: [
+      { label: '', skills: [{ name: 'Docker' }, { name: 'Kubernetes' }] },
+      { label: '', skills: [{ name: 'GCP' }, { name: 'Terraform' }] },
+    ],
+  }
+];
+---
+
+<section
+  id="about"
+  class="min-h-screen px-6 py-20 md:px-16 lg:px-24 xl:px-32 flex items-center"
+>
+  <div class="w-full max-w-6xl mx-auto">
+    <!-- Section Header -->
+    <div class="flex items-center gap-4 mb-12">
+      <h2 class="font-mono text-2xl md:text-3xl font-bold">
+        <span class="text-teal-500">01.</span>
+        <span class="ml-2 text-gray-800 dark:text-gray-100">About Me</span>
+      </h2>
+      <div class="flex-1 h-px bg-gray-300 dark:bg-navy-light max-w-xs"></div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-18 items-center">
+
+      <!-- Left Column: Bio Text -->
+      <div class="flex flex-col gap-6">
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+          I started my career in research, working deeply with{' '}
+          <span class="text-teal-500 font-medium">Computer Vision</span> and{' '}
+          <span class="text-teal-500 font-medium">Embedded AI systems</span>. I soon realized
+          that even the most advanced models need a solid foundation to truly deliver value.
+        </p>
+
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+          This drove my transition into Full-Stack Development and{' '}
+          <span class="text-teal-500 font-medium">Software Architecture</span>. Today, my focus
+          is bridging the gap between experimental AI and production environments. I design{' '}
+          <span class="text-teal-500 font-medium">robust, scalable software solutions</span>{' '}
+          that don't just host models, but empower them—ensuring that complex data turns into
+          reliable, real-world impact.
+        </p>
+
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+          Beyond the code, I am driven by a philosophy of{' '}
+          <span class="text-teal-500 font-medium">continuous self-overcoming</span>. I believe
+          the future belongs to{' '}
+          <span class="text-teal-500 font-medium">decentralized, open systems</span> that
+          maximize{' '}
+          <span class="text-teal-500 font-medium">individual agency</span>. I apply this mindset to every project, committed to the discipline of constant improvement and the freedom to build without boundaries.
+        </p>
+
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+          I am always open to{' '}
+          <span class="text-teal-500 font-medium">collaboration</span> on{' '}
+          <span class="text-teal-500 font-medium">research and new ventures</span>. If you are
+          working on a bold idea, let's connect.
+        </p>
+
+        <!-- CTA -->
+        <a
+          href="#contact"
+          class="group inline-flex items-center gap-2 mt-2 font-mono text-sm text-teal-500 hover:text-teal-400 transition-colors duration-200 w-fit"
+        >
+          <span class="italic">let's build <span class="font-semibold not-italic">something special</span></span>
+          <svg
+            class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Right Column: Technical Skills Card -->
+      <div
+        class="rounded-lg border border-gray-200 dark:border-navy-light bg-white dark:bg-navy-light/30 p-6 shadow-sm lg:ml-8"
+      >
+        <!-- Card Header -->
+        <div class="flex items-center gap-2 mb-6">
+          <span class="text-teal-500" aria-hidden="true">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" />
+            </svg>
+          </span>
+          <h3 class="font-mono font-semibold text-teal-500 text-base">Technical Skills</h3>
+        </div>
+
+        <!-- Skill Groups -->
+        <div class="flex flex-col gap-6">
+          {skillGroups.map((group) => (
+            <div>
+              <!-- Category Label -->
+              <p class="font-mono text-xs font-bold tracking-widest text-gray-500 dark:text-gray-400 mb-3 uppercase">
+                {group.category}
+              </p>
+
+              <!-- Two-column skill list -->
+              <div class="grid grid-cols-2 gap-x-4 gap-y-1">
+                {group.columns.map((col) =>
+                  col.skills.map((skill) => (
+                    <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+                      <span class="text-teal-500 text-xs" aria-hidden="true">▸</span>
+                      <span class="font-mono">{skill.name}</span>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Currently Learning Badge -->
+        <div class="mt-6 pt-4 border-t border-gray-200 dark:border-navy-light/60">
+          <div
+            class="flex items-center gap-2 rounded-md bg-teal-500/10 border border-teal-500/30 px-3 py-2 w-fit"
+          >
+            <span class="text-teal-500 font-mono text-xs" aria-hidden="true">⚡</span>
+            <span class="font-mono text-xs text-teal-500">
+              Currently learning Rust &amp; WebAssembly
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
