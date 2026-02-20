@@ -1,0 +1,254 @@
+---
+interface ExperienceEntry {
+  title: string;
+  company: string;
+  companyUrl: string;
+  dateLabel: string;
+  dateRange: string;
+  isCurrent: boolean;
+  bullets: { text: string; highlights?: string[] }[];
+  tags: string[];
+}
+
+const experiences: ExperienceEntry[] = [
+  {
+    title: 'Software Architect & Fullstack Developer',
+    company: 'Ciudata',
+    companyUrl: 'https://ciudata.io/',
+    dateLabel: 'Present',
+    dateRange: 'Jan 2025 – Now',
+    isCurrent: true,
+    bullets: [
+      {
+        text: 'Lead the {software architecture} and engineering lifecycle, enforcing design patterns, rigorous code reviews, and strategic planning to deliver high-quality solutions.',
+        highlights: ['software architecture'],
+      },
+      {
+        text: 'Architect and deploy scalable {GCP} cloud infrastructure utilizing {Terraform} for Infrastructure-as-Code (IaC), enabling robust and automated service provisioning.',
+        highlights: ['GCP', 'Terraform'],
+      },
+      {
+        text: 'Engineer high-performance full-stack applications, leveraging {FastAPI} for robust backend services alongside {Angular} for responsive cross-platform interfaces.',
+        highlights: ['FastAPI', 'Angular'],
+      },
+      {
+        text: 'Streamline deployment workflows by orchestrating CI/CD pipelines with {GitHub Actions} and {Docker}, while actively managing and optimizing {PostgreSQL} databases.',
+        highlights: ['GitHub Actions', 'Docker', 'PostgreSQL'],
+      }
+    ],
+    tags: [
+      'Software Architecture', 'FastAPI', 'Angular', 'Flutter', 'PostgreSQL', 'Docker', 'GitHub Actions', 'Terraform', 'GCP'
+    ],
+  },
+  {
+    title: 'Fullstack Engineer',
+    company: 'VIRIDIAN',
+    companyUrl: '#',
+    dateLabel: '',
+    dateRange: 'Dec 2022 - Jan 2025',
+    isCurrent: false,
+    bullets: [
+      {
+        text: 'Engineered and maintained robust software solutions, enforcing rigorous code quality standards to guarantee high performance and long-term scalability.',
+      },
+      {
+        text: 'Delivered mobile and web banking applications for premier Bolivian financial institutions, leveraging {Flutter} and {Angular}.',
+        highlights: ['Flutter', 'Angular'],
+      },
+      {
+        text: 'Fortified mobile applications by integrating strict security protocols and data protection measures to safeguard sensitive financial information.',
+      },
+    ],
+    tags: ['Flutter', 'Angular', 'Mobile Development', 'Security', 'Fintech', 'Frontend'],
+  },
+  {
+    title: 'Mechatronics Engineering Intern',
+    company: 'CREOTEC',
+    companyUrl: '#',
+    dateLabel: '',
+    dateRange: 'Feb 2022 – Apr 2022',
+    isCurrent: false,
+    bullets: [
+      {
+        text: 'Drove hardware innovation within a dynamic Bolivian startup environment, translating conceptual requirements into actionable engineering designs.',
+      },
+      {
+        text: 'Engineered precise 3D models and mechanical blueprints utilizing {SolidWorks} and {CAD design} methodologies to accelerate product development cycles.',
+        highlights: ['SolidWorks', 'CAD design'],
+      },
+      {
+        text: 'Executed {rapid prototyping} and {3D printing} workflows, continuously iterating on physical components to validate functionality and structural integrity.',
+        highlights: ['rapid prototyping', '3D printing'],
+      }
+    ],
+    tags: ['SolidWorks', 'CAD Design', 'Rapid Prototyping', '3D Printing', 'Engineering Design'],
+  },
+  {
+    title: 'Teaching Assistant',
+    company: 'Universidad Católica Boliviana "San Pablo"',
+    companyUrl: 'https://lpz.ucb.edu.bo/',
+    dateLabel: '',
+    dateRange: 'Feb 2020 – Dec 2021',
+    isCurrent: false,
+    bullets: [
+      {
+        text: 'Facilitated comprehensive academic support for undergraduate engineering courses, specializing in {Signals and Systems}, {Electronic Circuits}, and {Robotics}.',
+        highlights: ['Signals and Systems', 'Electronic Circuits', 'Robotics'],
+      },
+      {
+        text: 'Mentored students through complex theoretical concepts and hands-on laboratory practicals, reinforcing core principles of mechatronics engineering and problem-solving.',
+      },
+      {
+        text: 'Evaluated technical coursework and project implementations, providing actionable feedback to elevate student comprehension and ensure rigorous academic standards.',
+      }
+    ],
+    tags: ['Mentorship', 'Signals & Systems', 'Electronic Circuits', 'Robotics', 'Academic Instruction'],
+  },
+];
+
+function renderBullet(bullet: ExperienceEntry['bullets'][number]): string {
+  if (!bullet.highlights?.length) return bullet.text;
+  let html = bullet.text;
+  for (const h of bullet.highlights) {
+    html = html.replace(
+      `{${h}}`,
+      `<span class="text-teal-500/80 font-mono text-xs font-medium">${h}</span>`
+    );
+  }
+  return html;
+}
+---
+
+<section
+  id="experience"
+  class="min-h-screen px-6 py-20 md:px-16 lg:px-24 xl:px-32 flex items-center"
+>
+  <div class="w-full max-w-4xl mx-auto">
+    <!-- Section Header -->
+    <div class="flex items-center gap-4 mb-16">
+      <h2 class="font-mono text-2xl md:text-3xl font-bold">
+        <span class="text-teal-500">02.</span>
+        <span class="ml-2 text-gray-800 dark:text-gray-100">Experience</span>
+      </h2>
+      <div class="flex-1 h-px bg-gray-300 dark:bg-navy-light max-w-xs"></div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="relative pl-8 md:pl-0">
+      <div
+        class="space-y-16 relative
+          before:absolute before:inset-0
+          before:ml-5 before:-translate-x-px
+          md:before:ml-34 md:before:translate-x-0
+          before:h-full before:w-0.5
+          before:bg-linear-to-b before:from-transparent
+          before:via-gray-200 dark:before:via-navy-light
+          before:to-transparent"
+      >
+        {experiences.map((job) => (
+          <div class="relative flex items-start group">
+
+            <!-- Date column (desktop) -->
+            <div class="hidden md:block w-34 pr-6 text-right pt-1 shrink-0">
+              {job.isCurrent
+                ? (
+                  <>
+                    <span class="font-mono text-sm text-teal-500 font-medium">Present</span>
+                    <div class="text-xs text-gray-500 dark:text-gray-400 mt-1 font-mono">{job.dateRange}</div>
+                  </>
+                )
+                : (
+                  <span class="font-mono text-sm text-gray-500 dark:text-gray-400">{job.dateRange}</span>
+                )
+              }
+            </div>
+
+            <!-- Timeline dot -->
+            <div class="absolute left-0 ml-5 -translate-x-1/2 mt-1.5 md:left-34 md:ml-0 md:-translate-x-1/2 z-10">
+              <div
+                class:list={[
+                  'w-4 h-4 rounded-full border-2 bg-background-light dark:bg-background-dark transition-colors duration-300',
+                  job.isCurrent
+                    ? 'border-teal-500 group-hover:bg-teal-500'
+                    : 'border-gray-300 dark:border-gray-600 group-hover:border-teal-500 group-hover:bg-teal-500',
+                ]}
+              ></div>
+            </div>
+
+            <!-- Card -->
+            <div class="flex-1 ml-10 md:ml-8">
+              <div class="bg-white dark:bg-navy-light/30 rounded-lg p-6 shadow-sm border border-gray-100 dark:border-navy-light hover:shadow-md transition-shadow duration-300">
+
+                <!-- Card header -->
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+                  <div>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 group-hover:text-teal-500 transition-colors duration-200">
+                      {job.title}
+                    </h3>
+                    <a
+                      href={job.companyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-gray-500 dark:text-gray-400 font-mono text-sm hover:text-teal-500 transition-colors duration-200"
+                    >
+                      @ {job.company}
+                    </a>
+                  </div>
+                  <!-- Mobile date badge -->
+                  <span
+                    class:list={[
+                      'md:hidden font-mono text-xs mt-2 sm:mt-0 px-2 py-1 rounded w-fit',
+                      job.isCurrent
+                        ? 'text-teal-500 bg-teal-500/10'
+                        : 'text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-navy-light',
+                    ]}
+                  >
+                    {job.dateRange}
+                  </span>
+                </div>
+
+                <!-- Bullet points -->
+                <ul class="space-y-3 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                  {job.bullets.map((bullet) => (
+                    <li class="flex items-start">
+                      <span class="text-teal-500 mr-2 mt-1.5 text-xs shrink-0" aria-hidden="true">▹</span>
+                      <span set:html={renderBullet(bullet)} />
+                    </li>
+                  ))}
+                </ul>
+
+                <!-- Tech tags -->
+                <div class="mt-4 pt-4 border-t border-gray-100 dark:border-navy-light flex flex-wrap gap-2">
+                  {job.tags.map((tag) => (
+                    <span class="px-2 py-1 bg-gray-100 dark:bg-navy-light text-xs font-mono rounded text-gray-500 dark:text-gray-400">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Resume CTA -->
+      <div class="mt-16 md:pl-34">
+        <a
+          href="#"
+          class="inline-flex items-center gap-2 font-mono text-sm text-teal-500 hover:underline hover:underline-offset-4 transition-all"
+        >
+          View Full Resume
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
