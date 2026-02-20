@@ -87,9 +87,18 @@ const navItems = [
   // Close menu when a link is clicked
   const navLinks = document.querySelectorAll("a[href^='#']");
   navLinks.forEach((link) => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
       navMenu?.classList.remove('active');
       menuToggle?.classList.remove('active');
+
+      const targetId = link.getAttribute('href');
+      if (targetId && targetId !== '#') {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
     });
   });
 </script>
