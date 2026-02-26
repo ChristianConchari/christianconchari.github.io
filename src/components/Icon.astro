@@ -1,0 +1,14 @@
+---
+interface Props {
+  name: string;
+  class?: string;
+}
+
+const { name, class: className = 'w-4 h-4' } = Astro.props;
+
+const icons = import.meta.glob<string>('/src/assets/icons/*.svg', { eager: true, as: 'raw' });
+const raw: string | undefined = icons[`/src/assets/icons/${name}.svg`];
+const html = raw?.replace('<svg', `<svg class="${className}"`);
+---
+
+{html && <Fragment set:html={html} />}

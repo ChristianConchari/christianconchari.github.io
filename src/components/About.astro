@@ -1,5 +1,6 @@
 ---
 import SectionWrapper from '../layouts/SectionWrapper.astro';
+import Icon from './Icon.astro';
 
 interface Skill {
   name: string;
@@ -100,15 +101,7 @@ const skillGroups: SkillGroup[] = [
           class="group inline-flex items-center gap-2 mt-2 font-mono text-sm text-teal-500 hover:text-teal-400 transition-colors duration-200 w-fit"
         >
           <span class="italic">let's build <span class="font-semibold not-italic">something special</span></span>
-          <svg
-            class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
+          <Icon name="arrow-right" class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
         </a>
       </div>
 
@@ -119,9 +112,7 @@ const skillGroups: SkillGroup[] = [
         <!-- Card Header -->
         <div class="flex items-center gap-2 mb-6">
           <span class="text-teal-500" aria-hidden="true">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" />
-            </svg>
+            <Icon name="table" class="w-5 h-5" />
           </span>
           <h3 class="font-mono font-semibold text-teal-500 text-base">Technical Skills</h3>
         </div>

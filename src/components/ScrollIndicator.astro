@@ -1,4 +1,6 @@
 ---
+import Icon from './Icon.astro';
+
 interface Props {
   targetId?: string;
   ariaLabel?: string;
@@ -15,19 +17,7 @@ const {
   aria-label={ariaLabel}
   class="mt-16 md:mt-4 lg:mt-8 bottom-8 left-1/2 -translate-x-1/2 opacity-70 hover:opacity-100 transition-opacity duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 dark:ring-offset-gray-900 animate-bounce"
 >
-  <svg
-    class="w-8 h-8 text-teal-500"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    aria-hidden="true"
-  >
-    <path
-      d="M7 13l5 5 5-5M7 6l5 5 5-5"
-      stroke-width="2"
-      stroke-linecap="round"
-    />
-  </svg>
+  <Icon name="chevrons-down" class="w-8 h-8 text-teal-500" />
 </button>
 
 <script>

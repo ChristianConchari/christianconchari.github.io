@@ -1,21 +1,13 @@
+---
+import Icon from './Icon.astro';
+---
+
 <button
   id="scroll-to-top-button"
   aria-label="Scroll back to top"
   class="fixed bottom-8 right-8 z-50 flex h-12 w-12 translate-y-4 items-center justify-center rounded-full bg-primary text-background-dark opacity-0 transition-all duration-300 hover:scale-110 hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 pointer-events-none"
 >
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    class="h-5 w-5"
-    aria-hidden="true"
-  >
-    <polyline points="18 15 12 9 6 15" />
-  </svg>
+  <Icon name="chevron-up" class="h-5 w-5" />
 </button>
 
 <script>

@@ -1,0 +1,254 @@
+---
+import SectionWrapper from '../layouts/SectionWrapper.astro';
+import Icon from './Icon.astro';
+
+interface PublicationLink {
+  label: string;
+  url: string;
+  type: 'pdf' | 'bibtex' | 'code' | 'doi' | 'arxiv';
+}
+
+interface Publication {
+  year: string;
+  title: string;
+  authors: string[];
+  highlightedAuthor: string;
+  venue: string;
+  abstract: string;
+  links: PublicationLink[];
+  isLatest?: boolean;
+}
+
+const publications: Publication[] = [
+  {
+    "year": "2024",
+    "title": "Distributed edge computing for appearance-based gait recognition",
+    "authors": [
+      "C. Conchari",
+      "G. Sahonero-Alvarez",
+      "R. Mollocuaquira",
+      "E. Salazar"
+    ],
+    "highlightedAuthor": "C. Conchari",
+    "venue": "2024 IEEE ANDESCON",
+    "abstract": "The expansion of smart cities requires the integration of advanced security technologies, including gait recognition, which is increasingly valued for enhancing urban surveillance. This paper introduces a novel distributed edge computing framework specifically designed for appearance-based real-time gait recognition, utilizing deep learning techniques to ensure efficient and accurate analysis. The framework leverages a distributed architecture that minimizes latency and distributes computational loads across multiple devices, effectively balancing processing demands.",
+    "links": [
+      {
+        "label": "PDF",
+        "url": "https://ieeexplore.ieee.org/iel8/10755209/10755512/10755607.pdf",
+        "type": "pdf"
+      },
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.1109/ANDESCON61840.2024.10755607",
+        "type": "doi"
+      }
+    ],
+    "isLatest": true
+  },
+  {
+    "year": "2023",
+    "title": "Stratospheric balloon earth observation gathered imagery classification through deep learning",
+    "authors": [
+      "C. Conchari",
+      "F. Ticona",
+      "M. Molina",
+      "J. Nina",
+      "M. Mamani",
+      "K. Vidaurre",
+      "F. Díaz"
+    ],
+    "highlightedAuthor": "C. Conchari",
+    "venue": "2023 Argentine Conference on Electronics (CAE)",
+    "abstract": "Earth observation, also known as remote sensing, is the collection of data about the Earth's surface and atmosphere using various remote sensing platforms, such as satellites equipped with imaging instruments. The field of computer vision has been increasingly employed for satellite imagery analysis to extract meaningful information from the data collected. This article presents a workflow for implementing a deep learning-based image classification system for stratospheric balloon imagery.",
+    "links": [
+      {
+        "label": "PDF",
+        "url": "https://www.researchgate.net/publication/369820453_Stratospheric_balloon_earth_observation_gathered_imagery_classification_through_deep_learning",
+        "type": "pdf"
+      }
+    ]
+  },
+  {
+    "year": "2022",
+    "title": "Main analysis for the disturbance torques over the Altiplano region for 1U CubeSat nadir earth pointing",
+    "authors": [
+      "F. Coaquira",
+      "F. Palacios",
+      "K. Torrez",
+      "C. Conchari",
+      "J. Peñaranda"
+    ],
+    "highlightedAuthor": "C. Conchari",
+    "venue": "2022 IEEE ANDESCON",
+    "abstract": "Extensive research was carried out to develop nadir pointing and detumbling controllers for the conceptual design of a 1U CubeSat. This study analyzes the disturbance torques over the Altiplano region for nadir earth pointing, addressing challenges such as aerodynamic and gravity-gradient torques to evaluate the attitude control methodologies.",
+    "links": [
+      {
+        "label": "PDF",
+        "url": "https://www.researchgate.net/publication/366649790_Main_analysis_for_the_disturbance_torques_over_the_Altiplano_region_for_1U_CubeSat_nadir_earth_pointing",
+        "type": "pdf"
+      }
+    ]
+  },
+  {
+    "year": "2022",
+    "title": "Attitude determination and control system for nadir pointing and detumbling using magnetorquer for 1u bolivian cubesat",
+    "authors": [
+      "F. Ticona",
+      "G. Rojas",
+      "K. Vidaurre",
+      "C. Conchari",
+      "R. Manrique",
+      "N. Aliaga"
+    ],
+    "highlightedAuthor": "C. Conchari",
+    "venue": "2022 International Conference on Control, Robotics and Informatics (ICCRI)",
+    "abstract": "A CubeSat represents a low-cost solution for developing countries like Bolivia due to its small size and weight. This paper delves into the attitude control scheme and estimation system design for a 1U CubeSat aimed at Earth observation considering a maximum disturbance torque in Bolivian territory using gyroscopes, sun sensors, magnetorquers as actuators and magnetometers as attitude sensors.",
+    "links": [
+      {
+        "label": "PDF",
+        "url": "https://ieeexplore.ieee.org/document/9870709/",
+        "type": "pdf"
+      },
+      {
+        "label": "DOI",
+        "url": "https://doi.org/10.1109/ICCRI55461.2022.00015",
+        "type": "doi"
+      }
+    ]
+  },
+  
+];
+
+const iconMap: Record<PublicationLink['type'], string> = {
+  pdf: 'file-pdf',
+  bibtex: 'chat-bubble',
+  code: 'code-brackets',
+  doi: 'external-link',
+  arxiv: 'file-text',
+};
+---
+
+<SectionWrapper id="publications">
+  <!-- Section Header -->
+  <div class="flex items-center gap-4 mb-16">
+    <h2 class="font-mono text-2xl md:text-3xl font-bold">
+      <span class="text-teal-500">03.</span>
+      <span class="ml-2 text-gray-800 dark:text-gray-100">Publications</span>
+    </h2>
+    <div class="flex-1 h-px bg-gray-300 dark:bg-navy-light max-w-xs"></div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="relative pl-8 md:pl-0">
+    <div
+      class="space-y-16 relative
+        before:absolute before:inset-0
+        before:ml-5 before:-translate-x-px
+        md:before:ml-34 md:before:translate-x-0
+        before:h-full before:w-0.5
+        before:bg-linear-to-b before:from-transparent
+        before:via-gray-200 dark:before:via-navy-light
+        before:to-transparent"
+    >
+      {publications.map((pub) => (
+        <div class="relative flex items-start group">
+
+          <!-- Year column (desktop) -->
+          <div class="hidden md:block w-34 pr-6 text-right pt-1 shrink-0">
+            <span
+              class:list={[
+                'font-mono text-sm font-bold',
+                pub.isLatest
+                  ? 'text-teal-500'
+                  : 'text-gray-800 dark:text-gray-100',
+              ]}
+            >
+              {pub.year}
+            </span>
+          </div>
+
+          <!-- Timeline dot -->
+          <div class="absolute left-0 ml-5 -translate-x-1/2 mt-1.5 md:left-34 md:ml-0 md:-translate-x-1/2 z-10">
+            <div
+              class:list={[
+                'w-4 h-4 rounded-full border-2 bg-background-light dark:bg-background-dark transition-colors duration-300',
+                pub.isLatest
+                  ? 'border-teal-500 group-hover:bg-teal-500'
+                  : 'border-gray-300 dark:border-gray-600 group-hover:border-teal-500 group-hover:bg-teal-500',
+              ]}
+            ></div>
+          </div>
+
+          <!-- Card -->
+          <div class="flex-1 ml-10 md:ml-8">
+            <div class="bg-white dark:bg-navy-light/30 rounded-lg p-6 shadow-sm border border-gray-100 dark:border-navy-light hover:shadow-md transition-shadow duration-300">
+
+              <!-- Title & meta -->
+              <div class="mb-4">
+                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 leading-snug group-hover:text-teal-500 transition-colors duration-200">
+                  {pub.title}
+                </h3>
+
+                <!-- Authors -->
+                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 font-mono">
+                  {pub.authors.map((author, i) => (
+                    <>
+                      {author === pub.highlightedAuthor
+                        ? <span class="text-teal-500 font-semibold">{author}</span>
+                        : <span>{author}</span>
+                      }
+                      {i < pub.authors.length - 1 && <span>, </span>}
+                    </>
+                  ))}
+                </p>
+
+                <!-- Venue -->
+                <p class="mt-1 font-mono text-sm text-teal-500 font-medium">{pub.venue}</p>
+
+                <!-- Mobile year badge -->
+                <span class="md:hidden inline-block mt-2 font-mono text-xs px-2 py-1 rounded bg-gray-100 dark:bg-navy-light text-gray-500 dark:text-gray-400">
+                  {pub.year}
+                </span>
+              </div>
+
+              <!-- Abstract -->
+              <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-5">
+                {pub.abstract}
+              </p>
+
+              <!-- Action links -->
+              <div class="flex flex-wrap gap-2">
+                {pub.links.map((link) => (
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white rounded text-xs font-mono transition-colors duration-200"
+                  >
+                    <Icon name={iconMap[link.type]} class="w-3.5 h-3.5" />
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Google Scholar CTA -->
+    <div class="mt-16 md:pl-34">
+      <a
+        href="https://scholar.google.com/citations?user=KshMMnwAAAAJ&hl=en"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 font-mono text-sm text-teal-500 hover:underline hover:underline-offset-4 transition-all"
+      >
+        View Google Scholar
+        <Icon name="external-link" class="w-4 h-4" />
+      </a>
+    </div>
+  </div>
+</SectionWrapper>
