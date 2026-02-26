@@ -1,0 +1,207 @@
+---
+import SectionWrapper from '../layouts/SectionWrapper.astro';
+import Icon from './Icon.astro';
+
+type ProjectCategory = 'AI & ML' | 'Backend' | 'Frontend' | 'Embedded' | 'Mobile';
+
+interface Project {
+  title: string;
+  description: string;
+  tags: string[];
+  categories: ProjectCategory[];
+  githubUrl: string;
+  liveUrl?: string;
+  image?: string;
+}
+
+const filterCategories: Array<'All' | ProjectCategory> = [
+  'All',
+  'AI & ML',
+  'Backend',
+  'Frontend',
+  'Embedded',
+  'Mobile',
+];
+
+const projects: Project[] = [
+  {
+    "title": "Velorith.ai Portfolio",
+    "description": "A modern, adaptable personal portfolio and website template developed with Astro and Tailwind CSS. Features dark mode, smooth scroll, and a clean section-wrapper architecture.",
+    "tags": ["Astro", "Tailwind CSS", "TypeScript"],
+    "categories": ["Frontend"],
+    "githubUrl": "https://github.com/christianconchari/christianconchari.github.io",
+    "liveUrl": "#"
+  },
+  {
+    "title": "Agricultural Crop Stage ML Model",
+    "description": "Machine learning model leveraging time-series analysis and satellite imagery to accurately identify emergence and harvest dates for soy, corn, and wheat crops.",
+    "tags": ["Python", "Machine Learning", "Remote Sensing", "Time-Series Analysis"],
+    "categories": ["AI & ML"],
+    "githubUrl": "#"
+  },
+  {
+    "title": "Nanosatellite Payload Subsystem",
+    "description": "Hardware and software integration for a nanosatellite research project. Architected the payload utilizing an OpenMV N6 board and a multispectral thermal camera module.",
+    "tags": ["Embedded Systems", "Computer Vision", "Hardware", "OpenMV"],
+    "categories": ["Embedded"],
+    "githubUrl": "#"
+  },
+  {
+    "title": "Distributed Edge Gait Recognition",
+    "description": "A distributed edge computing framework for real-time appearance-based gait recognition using deep learning. Minimizes latency and distributes computation across multiple edge devices.",
+    "tags": ["Python", "Deep Learning", "Edge Computing"],
+    "categories": ["AI & ML", "Embedded"],
+    "githubUrl": "#"
+  },
+  {
+    "title": "1U CubeSat ADCS Simulator",
+    "description": "Attitude Determination and Control System for a 1U Bolivian CubeSat. Analyzes disturbance torques over the Altiplano region and implements nadir-pointing controllers using magnetorquers.",
+    "tags": ["Control Systems", "Embedded Systems", "Simulation"],
+    "categories": ["Embedded"],
+    "githubUrl": "#"
+  },
+  {
+    "title": "Stratospheric Balloon Classifier",
+    "description": "Deep learning pipeline for Earth observation imagery collected by stratospheric balloons, utilizing computer vision for advanced remote sensing classification tasks.",
+    "tags": ["Python", "Deep Learning", "Computer Vision", "Remote Sensing"],
+    "categories": ["AI & ML"],
+    "githubUrl": "#"
+  }
+];
+---
+
+<SectionWrapper id="projects">
+  <!-- Section Header -->
+  <div class="flex items-center gap-4 mb-16">
+    <h2 class="font-mono text-2xl md:text-3xl font-bold">
+      <span class="text-teal-500">04.</span>
+      <span class="ml-2 text-gray-800 dark:text-gray-100">Projects</span>
+    </h2>
+    <div class="flex-1 h-px bg-gray-300 dark:bg-navy-light max-w-xs"></div>
+  </div>
+
+  <!-- Category Filter Pills -->
+  <div class="flex flex-wrap gap-3 mb-12">
+    {filterCategories.map((category) => (
+      <button
+        data-filter={category}
+        class:list={[
+          'px-4 py-1.5 rounded-full border text-sm font-mono transition-colors duration-200 cursor-pointer',
+          category === 'All'
+            ? 'bg-teal-500 text-white border-teal-500'
+            : 'bg-white dark:bg-navy-light/30 border border-gray-200 dark:border-navy-light text-gray-500 dark:text-gray-400 hover:text-teal-500 hover:border-teal-500',
+        ]}
+      >
+        {category}
+      </button>
+    ))}
+  </div>
+
+  <!-- Projects Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {projects.map((project) => (
+      <article
+        data-categories={project.categories.join(',')}
+        class="group bg-white dark:bg-navy-light/30 border border-gray-100 dark:border-navy-light rounded-lg shadow-sm overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+      >
+        <!-- Image Area -->
+        <div class="relative h-48 overflow-hidden">
+          {project.image ? (
+            <>
+              <img
+                src={project.image}
+                alt={project.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-teal-500/10 group-hover:opacity-0 transition-opacity duration-300" />
+            </>
+          ) : (
+            <div class="w-full h-full bg-linear-to-br from-gray-100 to-gray-200 dark:from-navy-light dark:to-background-dark flex items-center justify-center">
+              <Icon name="code-brackets" class="w-10 h-10 text-teal-500/30" />
+            </div>
+          )}
+        </div>
+
+        <!-- Card Body -->
+        <div class="p-6">
+          <!-- Title Row with Action Links -->
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <h3 class="text-base font-bold text-gray-800 dark:text-gray-100 group-hover:text-teal-500 transition-colors duration-200 leading-snug">
+              {project.title}
+            </h3>
+            <div class="flex items-center gap-2 shrink-0">
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View ${project.title} source code on GitHub`}
+                class="text-gray-400 hover:text-teal-500 transition-colors duration-200"
+              >
+                <Icon name="code-brackets" class="w-4 h-4" />
+              </a>
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View ${project.title} live site`}
+                  class="text-gray-400 hover:text-teal-500 transition-colors duration-200"
+                >
+                  <Icon name="external-link" class="w-4 h-4" />
+                </a>
+              )}
+            </div>
+          </div>
+
+          <!-- Description -->
+          <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4">
+            {project.description}
+          </p>
+
+          <!-- Tech Tags -->
+          <div class="flex flex-wrap gap-2">
+            {project.tags.map((tag) => (
+              <span class="px-2 py-1 bg-teal-500/5 text-teal-500 text-xs font-mono rounded">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</SectionWrapper>
+
+<script>
+  const filterButtons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const projectCards = document.querySelectorAll<HTMLElement>('[data-categories]');
+
+  function applyFilter(selectedFilter: string): void {
+    filterButtons.forEach((button) => {
+      const isSelected = button.dataset.filter === selectedFilter;
+      button.classList.toggle('bg-teal-500', isSelected);
+      button.classList.toggle('text-white', isSelected);
+      button.classList.toggle('border-teal-500', isSelected);
+      button.classList.toggle('bg-white', !isSelected);
+      button.classList.toggle('text-gray-500', !isSelected);
+      button.classList.toggle('dark:text-gray-400', !isSelected);
+      button.classList.toggle('border-gray-200', !isSelected);
+      button.classList.toggle('dark:border-navy-light', !isSelected);
+      button.classList.toggle('hover:text-teal-500', !isSelected);
+      button.classList.toggle('hover:border-teal-500', !isSelected);
+    });
+
+    projectCards.forEach((card) => {
+      const cardCategories = card.dataset.categories?.split(',') ?? [];
+      const isVisible = selectedFilter === 'All' || cardCategories.includes(selectedFilter);
+      card.style.display = isVisible ? '' : 'none';
+    });
+  }
+
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.filter ?? 'All';
+      applyFilter(filter);
+    });
+  });
+</script>
