@@ -1,4 +1,6 @@
 ---
+import SectionWrapper from '../layouts/SectionWrapper.astro';
+
 interface ExperienceEntry {
   title: string;
   company: string;
@@ -41,7 +43,7 @@ const experiences: ExperienceEntry[] = [
     ],
   },
   {
-    title: 'Fullstack Engineer',
+    title: 'Software Engineer',
     company: 'VIRIDIAN',
     companyUrl: '#',
     dateLabel: '',
@@ -62,7 +64,7 @@ const experiences: ExperienceEntry[] = [
     tags: ['Flutter', 'Angular', 'Mobile Development', 'Security', 'Fintech', 'Frontend'],
   },
   {
-    title: 'Mechatronics Engineering Intern',
+    title: 'Engineering Intern',
     company: 'CREOTEC',
     companyUrl: '#',
     dateLabel: '',
@@ -119,11 +121,7 @@ function renderBullet(bullet: ExperienceEntry['bullets'][number]): string {
 }
 ---
 
-<section
-  id="experience"
-  class="min-h-screen px-6 py-20 md:px-16 lg:px-24 xl:px-32 flex items-center"
->
-  <div class="w-full max-w-4xl mx-auto">
+<SectionWrapper id="experience">
     <!-- Section Header -->
     <div class="flex items-center gap-4 mb-16">
       <h2 class="font-mono text-2xl md:text-3xl font-bold">
@@ -250,5 +248,4 @@ function renderBullet(bullet: ExperienceEntry['bullets'][number]): string {
         </a>
       </div>
     </div>
-  </div>
-</section>
+</SectionWrapper>

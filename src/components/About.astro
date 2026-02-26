@@ -1,4 +1,6 @@
 ---
+import SectionWrapper from '../layouts/SectionWrapper.astro';
+
 interface Skill {
   name: string;
 }
@@ -45,11 +47,7 @@ const skillGroups: SkillGroup[] = [
 ];
 ---
 
-<section
-  id="about"
-  class="min-h-screen px-6 py-20 md:px-16 lg:px-24 xl:px-32 flex items-center"
->
-  <div class="w-full max-w-6xl mx-auto">
+<SectionWrapper id="about">
     <!-- Section Header -->
     <div class="flex items-center gap-4 mb-12">
       <h2 class="font-mono text-2xl md:text-3xl font-bold">
@@ -165,5 +163,4 @@ const skillGroups: SkillGroup[] = [
         </div>
       </div>
     </div>
-  </div>
-</section>
+</SectionWrapper>
