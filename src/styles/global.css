@@ -2,6 +2,13 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Suppress all transitions during theme switch to prevent flash */
+html[data-theme-switching] *,
+html[data-theme-switching] *::before,
+html[data-theme-switching] *::after {
+  transition: none !important;
+}
+
 @theme {
   /* Custom Colors */
   --color-primary: #2dd4bf;

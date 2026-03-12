@@ -5,7 +5,7 @@ import Icon from './Icon.astro';
 <button
   id="themeToggle"
   aria-label="Toggle theme"
-  class="border-primary text-primary hover:bg-primary/10 cursor-pointer rounded-xl border-2 px-3 py-1.5 transition-all duration-300 md:px-4 lg:px-6 lg:py-4"
+  class="border-primary text-primary hover:bg-primary/10 cursor-pointer rounded-xl border-2 px-3 py-1.5 transition-all duration-300 md:px-4 md:py-2 lg:px-6 lg:py-3"
 >
   <!-- Sun icon (shown in dark mode) -->
   <span id="sunIcon" class="hidden dark:inline-flex"><Icon name="sun" class="h-5 w-5" /></span>
@@ -17,7 +17,18 @@ import Icon from './Icon.astro';
   const themeToggle = document.getElementById('themeToggle');
 
   themeToggle?.addEventListener('click', () => {
+    // Freeze all transitions for the duration of the theme switch
+    document.documentElement.setAttribute('data-theme-switching', '');
+
     const isDark = document.documentElement.classList.toggle('dark');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+    // Two rAFs: first lets the browser process the class change,
+    // second confirms the repaint is committed before re-enabling transitions
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.documentElement.removeAttribute('data-theme-switching');
+      });
+    });
   });
 </script>
