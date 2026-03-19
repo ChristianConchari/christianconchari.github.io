@@ -25,49 +25,47 @@ const filterCategories: Array<'All' | ProjectCategory> = [
 
 const projects: Project[] = [
   {
-    "title": "Velorith.ai Portfolio",
-    "description": "A modern, adaptable personal portfolio and website template developed with Astro and Tailwind CSS. Features dark mode, smooth scroll, and a clean section-wrapper architecture.",
-    "tags": ["Astro", "Tailwind CSS", "TypeScript"],
-    "categories": ["Frontend"],
-    "githubUrl": "https://github.com/christianconchari/christianconchari.github.io",
-    "liveUrl": "#"
+    title: "AI Crop Emergence & Harvest Prediction",
+    description: "Predictive model designed to identify critical agricultural stages using time-series analysis and satellite imagery for precision farming.",
+    tags: ["Python", "Machine Learning", "Scikit-learn", "Remote Sensing"],
+    categories: ["AI & ML"],
+    githubUrl: "https://github.com/ChristianConchari/AI-Crop-Emergence-Harvest-Prediction",
+    liveUrl: "#"
   },
   {
-    "title": "Agricultural Crop Stage ML Model",
-    "description": "Machine learning model leveraging time-series analysis and satellite imagery to accurately identify emergence and harvest dates for soy, corn, and wheat crops.",
-    "tags": ["Python", "Machine Learning", "Remote Sensing", "Time-Series Analysis"],
-    "categories": ["AI & ML"],
-    "githubUrl": "#"
+    title: "Distributed Edge Gait Recognition",
+    description: "A framework for real-time, appearance-based biometric identification using distributed edge computing to minimize latency and bandwidth.",
+    tags: ["Python", "Deep Learning", "Edge Computing", "PyTorch"],
+    categories: ["AI & ML", "Embedded"],
+    githubUrl: "https://github.com/ChristianConchari/Distributed-edge-computing-for-appearance-based-gait-recognition",
+    liveUrl: "#"
   },
   {
-    "title": "Nanosatellite Payload Subsystem",
-    "description": "Hardware and software integration for a nanosatellite research project. Architected the payload utilizing an OpenMV N6 board and a multispectral thermal camera module.",
-    "tags": ["Embedded Systems", "Computer Vision", "Hardware", "OpenMV"],
-    "categories": ["Embedded"],
-    "githubUrl": "#"
+    title: "Oil Painting Style Transfer",
+    description: "An implementation of Neural Style Transfer (NST) to transform standard digital photographs into artistic oil paintings using deep learning frameworks.",
+    tags: ["Python", "PyTorch", "Computer Vision", "Deep Learning"],
+    categories: ["AI & ML"],
+    githubUrl: "https://github.com/ChristianConchari/oil_painting_style_transfer",
+    liveUrl: "#"
   },
   {
-    "title": "Distributed Edge Gait Recognition",
-    "description": "A distributed edge computing framework for real-time appearance-based gait recognition using deep learning. Minimizes latency and distributes computation across multiple edge devices.",
-    "tags": ["Python", "Deep Learning", "Edge Computing"],
-    "categories": ["AI & ML", "Embedded"],
-    "githubUrl": "#"
+    title: "Bike Sharing Demand Analysis",
+    description: "A comprehensive data science project focused on forecasting urban mobility demand through regression modeling and environmental data analysis.",
+    tags: ["Python", "Data Analysis", "XGBoost", "Pandas"],
+    categories: ["AI & ML"],
+    githubUrl: "https://github.com/ChristianConchari/bike-sharing-demand",
+    liveUrl: "#"
   },
   {
-    "title": "1U CubeSat ADCS Simulator",
-    "description": "Attitude Determination and Control System for a 1U Bolivian CubeSat. Analyzes disturbance torques over the Altiplano region and implements nadir-pointing controllers using magnetorquers.",
-    "tags": ["Control Systems", "Embedded Systems", "Simulation"],
-    "categories": ["Embedded"],
-    "githubUrl": "#"
+    title: "Stratospheric TinyML Imagery Classifier",
+    description: "An optimized deep learning pipeline for Earth observation, specifically designed for low-power edge devices (TinyML) on stratospheric balloon missions.",
+    tags: ["TinyML", "TensorFlow Lite", "Python", "Remote Sensing"],
+    categories: ["AI & ML", "Embedded"],
+    githubUrl: "https://github.com/ChristianConchari/Strathospheric-ballon-earth-observation-gathered-imagery-classification-through-TinyML",
+    liveUrl: "#"
   },
-  {
-    "title": "Stratospheric Balloon Classifier",
-    "description": "Deep learning pipeline for Earth observation imagery collected by stratospheric balloons, utilizing computer vision for advanced remote sensing classification tasks.",
-    "tags": ["Python", "Deep Learning", "Computer Vision", "Remote Sensing"],
-    "categories": ["AI & ML"],
-    "githubUrl": "#"
-  }
 ];
+
 ---
 
 <SectionWrapper id="projects">
