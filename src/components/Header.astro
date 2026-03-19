@@ -12,8 +12,8 @@ const { activeSection } = Astro.props;
 const navItems = [
   { number: '01', label: 'About Me', href: '#about' },
   { number: '02', label: 'Experience', href: '#experience' },
-  { number: '03', label: 'Projects', href: '#projects' },
-  { number: '04', label: 'Publications', href: '#publications' },
+  { number: '03', label: 'Publications', href: '#publications' },
+  { number: '04', label: 'Projects', href: '#projects' },
   { number: '05', label: 'Contact', href: '#contact' },
 ];
 ---
@@ -48,7 +48,7 @@ const navItems = [
             <li class="border-primary/10 border-b py-3 last:border-none md:border-none md:py-0">
               <a
                 href={item.href}
-                class="lg:text-1xl flex flex-col items-start gap-1 font-mono whitespace-nowrap transition-colors duration-300 md:flex-row md:items-center md:gap-2 md:text-1xl"
+                class="lg:text-1xl md:text-1xl flex flex-col items-start gap-1 font-mono whitespace-nowrap transition-colors duration-300 md:flex-row md:items-center md:gap-2"
               >
                 <span class="inline text-xl font-bold text-teal-400 md:hidden lg:inline">
                   {item.number}
