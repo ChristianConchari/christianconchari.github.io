@@ -1,0 +1,59 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  cover?: ImageMetadata;
+  coverAlt?: string;
+  letter?: string;
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+
+const { cover, coverAlt, letter, size = 'md', class: className } = Astro.props;
+
+const sizeClass = { sm: 'h-10 w-14', md: 'h-40 w-full', lg: 'h-52 w-full' }[size];
+const letterClass = {
+  sm: 'text-xs opacity-40',
+  md: 'text-6xl opacity-10',
+  lg: 'text-8xl opacity-10',
+}[size];
+const widths = { sm: 112, md: 640, lg: 1024 }[size];
+const showStripes = size !== 'sm';
+---
+
+<div class:list={['relative shrink-0 overflow-hidden', sizeClass, className]}>
+  {
+    cover ? (
+      <Image
+        src={cover}
+        alt={coverAlt ?? ''}
+        width={cover.width}
+        height={cover.height}
+        widths={[widths / 2, widths]}
+        sizes={size === 'sm' ? '112px' : `(min-width: 1024px) ${widths}px, 100vw`}
+        loading={size === 'lg' ? 'eager' : 'lazy'}
+        class="h-full w-full object-cover"
+      />
+    ) : (
+      <>
+        <div
+          class="absolute inset-0"
+          style="background: linear-gradient(135deg, var(--color-navy-light) 0%, var(--color-background-dark) 60%, #0d1f3c 100%);"
+        />
+        {showStripes && (
+          <div
+            class="absolute inset-0"
+            style="background: repeating-linear-gradient(-45deg, transparent, transparent 8px, rgba(45,212,191,0.06) 8px, rgba(45,212,191,0.06) 9px);"
+          />
+        )}
+        {letter && (
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class:list={['text-primary font-mono font-bold', letterClass]}>{letter}</span>
+          </div>
+        )}
+      </>
+    )
+  }
+  <slot />
+</div>

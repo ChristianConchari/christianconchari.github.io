@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BlogLayout from '../../layouts/BlogLayout.astro';
-import CoverPlaceholder from '../../components/ui/CoverPlaceholder.astro';
+import PostCover from '../../components/ui/PostCover.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -53,7 +53,13 @@ function formatDate(date: Date) {
       </nav>
 
       <!-- Cover image placeholder -->
-      <CoverPlaceholder letter={post.data.tags[0]?.[0]} size="lg" class="rounded-md mb-9" />
+      <PostCover
+        cover={post.data.cover}
+        coverAlt={post.data.coverAlt ?? post.data.title}
+        letter={post.data.tags[0]?.[0]}
+        size="lg"
+        class="rounded-md mb-9"
+      />
 
       <!-- Post header -->
       <header class="mb-8">
@@ -152,7 +158,7 @@ function formatDate(date: Date) {
           {
             post.data.tags.map((tag, i) => (
               <a
-                href={`/blog`}
+                href={`/blog?tag=${encodeURIComponent(tag)}`}
                 class={`text-xs px-2.5 py-0.5 border rounded-sm font-mono no-underline transition-colors duration-200 hover:bg-primary/10 hover:border-primary hover:text-primary ${i === 0 ? 'border-primary text-primary' : 'border-gray-200 dark:border-navy-light text-muted-light dark:text-muted-dark'}`}
               >
                 {tag}
@@ -174,7 +180,13 @@ function formatDate(date: Date) {
                 href={`/blog/${related.slug}`}
                 class="flex gap-2.5 p-3 border border-gray-200 dark:border-navy-light rounded-md mb-2.5 hover:border-primary transition-colors duration-200 no-underline group"
               >
-                <CoverPlaceholder letter={related.data.tags[0]?.[0]} size="sm" class="rounded" />
+                <PostCover
+                  cover={related.data.cover}
+                  coverAlt={related.data.coverAlt ?? related.data.title}
+                  letter={related.data.tags[0]?.[0]}
+                  size="sm"
+                  class="rounded"
+                />
                 <div class="min-w-0">
                   <p class="text-xs text-text-light dark:text-text-dark leading-snug line-clamp-2 group-hover:text-primary transition-colors duration-200 m-0">
                     {related.data.title}

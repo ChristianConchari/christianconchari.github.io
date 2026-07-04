@@ -3,7 +3,7 @@ import ThemeToggle from './ThemeToggle.astro';
 import Button from './ui/Button.astro';
 
 interface Props {
-  activeTab?: 'all' | 'tags' | 'about';
+  activeTab?: 'all' | 'about';
 }
 const { activeTab = 'all' } = Astro.props;
 ---
@@ -30,12 +30,6 @@ const { activeTab = 'all' } = Astro.props;
       class={`font-mono font-bold no-underline whitespace-nowrap transition-colors duration-300 lg:text-lg ${activeTab === 'all' ? 'text-primary' : 'text-text-light dark:text-text-dark hover:text-primary'}`}
     >
       All Posts
-    </a>
-    <a
-      href="/blog"
-      class={`font-mono font-bold no-underline whitespace-nowrap transition-colors duration-300 lg:text-lg ${activeTab === 'tags' ? 'text-primary' : 'text-text-light dark:text-text-dark hover:text-primary'}`}
-    >
-      Tags
     </a>
     <a
       href="/#about"
