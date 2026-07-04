@@ -1,0 +1,32 @@
+---
+interface Props extends astroHTML.JSX.HTMLAttributes {
+  href?: string;
+  variant: 'solid' | 'outline';
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  class?: string;
+}
+
+const { href, variant, type = 'button', disabled = false, class: className, ...rest } =
+  Astro.props;
+
+const variantClass =
+  variant === 'solid'
+    ? 'bg-primary text-white hover:bg-secondary rounded-lg font-semibold disabled:cursor-not-allowed disabled:opacity-60'
+    : 'border-primary text-primary hover:bg-primary/10 rounded-xl border-2';
+
+const baseClass =
+  'font-mono no-underline transition-all duration-300 inline-flex items-center justify-center gap-2 cursor-pointer';
+---
+
+{
+  href ? (
+    <a href={href} class:list={[baseClass, variantClass, className]} {...rest}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} disabled={disabled} class:list={[baseClass, variantClass, className]} {...rest}>
+      <slot />
+    </button>
+  )
+}

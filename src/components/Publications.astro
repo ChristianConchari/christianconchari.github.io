@@ -1,6 +1,8 @@
 ---
 import SectionWrapper from '../layouts/SectionWrapper.astro';
 import Icon from './Icon.astro';
+import SectionHeading from './ui/SectionHeading.astro';
+import Card from './ui/Card.astro';
 
 interface PublicationLink {
   label: string;
@@ -130,14 +132,7 @@ const iconMap: Record<PublicationLink['type'], string> = {
 ---
 
 <SectionWrapper id="publications">
-  <!-- Section Header -->
-  <div class="flex items-center gap-4 mb-16">
-    <h2 class="font-mono text-2xl md:text-3xl font-bold">
-      <span class="text-teal-500">03.</span>
-      <span class="ml-2 text-gray-800 dark:text-gray-100">Publications</span>
-    </h2>
-    <div class="flex-1 h-px bg-gray-300 dark:bg-navy-light max-w-xs"></div>
-  </div>
+  <SectionHeading number="03" title="Publications" />
 
   <!-- Timeline -->
   <div class="relative pl-8 md:pl-0">
@@ -160,8 +155,8 @@ const iconMap: Record<PublicationLink['type'], string> = {
               class:list={[
                 'font-mono text-sm font-bold',
                 pub.isLatest
-                  ? 'text-teal-500'
-                  : 'text-gray-800 dark:text-gray-100',
+                  ? 'text-primary'
+                  : 'text-text-light dark:text-text-dark',
               ]}
             >
               {pub.year}
@@ -174,28 +169,28 @@ const iconMap: Record<PublicationLink['type'], string> = {
               class:list={[
                 'w-4 h-4 rounded-full border-2 bg-background-light dark:bg-background-dark transition-colors duration-300',
                 pub.isLatest
-                  ? 'border-teal-500 group-hover:bg-teal-500'
-                  : 'border-gray-300 dark:border-gray-600 group-hover:border-teal-500 group-hover:bg-teal-500',
+                  ? 'border-primary group-hover:bg-primary'
+                  : 'border-gray-300 dark:border-gray-600 group-hover:border-primary group-hover:bg-primary',
               ]}
             ></div>
           </div>
 
           <!-- Card -->
           <div class="flex-1 ml-10 md:ml-8">
-            <div class="bg-white dark:bg-navy-light/30 rounded-lg p-6 shadow-sm border border-gray-100 dark:border-navy-light hover:shadow-md transition-shadow duration-300">
+            <Card variant="glow">
 
               <!-- Title & meta -->
               <div class="mb-4">
-                <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 leading-snug group-hover:text-teal-500 transition-colors duration-200">
+                <h3 class="text-lg font-bold text-text-light dark:text-text-dark leading-snug group-hover:text-primary transition-colors duration-200">
                   {pub.title}
                 </h3>
 
                 <!-- Authors -->
-                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 font-mono">
+                <p class="mt-2 text-sm text-muted-light dark:text-muted-dark font-mono">
                   {pub.authors.map((author, i) => (
                     <>
                       {author === pub.highlightedAuthor
-                        ? <span class="text-teal-500 font-semibold">{author}</span>
+                        ? <span class="text-primary font-semibold">{author}</span>
                         : <span>{author}</span>
                       }
                       {i < pub.authors.length - 1 && <span>, </span>}
@@ -204,16 +199,16 @@ const iconMap: Record<PublicationLink['type'], string> = {
                 </p>
 
                 <!-- Venue -->
-                <p class="mt-1 font-mono text-sm text-teal-500 font-medium">{pub.venue}</p>
+                <p class="mt-1 font-mono text-sm text-primary font-medium">{pub.venue}</p>
 
                 <!-- Mobile year badge -->
-                <span class="md:hidden inline-block mt-2 font-mono text-xs px-2 py-1 rounded bg-gray-100 dark:bg-navy-light text-gray-500 dark:text-gray-400">
+                <span class="md:hidden inline-block mt-2 font-mono text-xs px-2 py-1 rounded bg-gray-100 dark:bg-navy-light text-muted-light dark:text-muted-dark">
                   {pub.year}
                 </span>
               </div>
 
               <!-- Abstract -->
-              <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-5">
+              <p class="text-sm text-muted-light dark:text-muted-dark leading-relaxed mb-5">
                 {pub.abstract}
               </p>
 
@@ -224,7 +219,7 @@ const iconMap: Record<PublicationLink['type'], string> = {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white rounded text-xs font-mono transition-colors duration-200"
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-primary text-primary hover:bg-primary hover:text-white rounded text-xs font-mono transition-colors duration-200"
                   >
                     <Icon name={iconMap[link.type]} class="w-3.5 h-3.5" />
                     {link.label}
@@ -232,7 +227,7 @@ const iconMap: Record<PublicationLink['type'], string> = {
                 ))}
               </div>
 
-            </div>
+            </Card>
           </div>
         </div>
       ))}
@@ -244,7 +239,7 @@ const iconMap: Record<PublicationLink['type'], string> = {
         href="https://scholar.google.com/citations?user=KshMMnwAAAAJ&hl=en"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 font-mono text-sm text-teal-500 hover:underline hover:underline-offset-4 transition-all"
+        class="inline-flex items-center gap-2 font-mono text-sm text-primary hover:underline hover:underline-offset-4 transition-all"
       >
         View Google Scholar
         <Icon name="external-link" class="w-4 h-4" />

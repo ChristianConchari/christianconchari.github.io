@@ -1,17 +1,19 @@
 ---
 import Icon from './Icon.astro';
+import Button from './ui/Button.astro';
 ---
 
-<button
+<Button
   id="themeToggle"
+  variant="outline"
   aria-label="Toggle theme"
-  class="border-primary text-primary hover:bg-primary/10 cursor-pointer rounded-xl border-2 px-3 py-1.5 transition-all duration-300 md:px-4 md:py-2 lg:px-6 lg:py-3"
+  class="px-3 py-1.5 md:px-4 md:py-2 lg:px-6 lg:py-3"
 >
   <!-- Sun icon (shown in dark mode) -->
   <span id="sunIcon" class="hidden dark:inline-flex"><Icon name="sun" class="h-5 w-5" /></span>
   <!-- Moon icon (shown in light mode) -->
   <span id="moonIcon" class="inline-flex dark:hidden"><Icon name="moon" class="h-5 w-5" /></span>
-</button>
+</Button>
 
 <script>
   const themeToggle = document.getElementById('themeToggle');

@@ -1,6 +1,9 @@
 ---
 import SectionWrapper from '../layouts/SectionWrapper.astro';
 import Icon from './Icon.astro';
+import SectionHeading from './ui/SectionHeading.astro';
+import Card from './ui/Card.astro';
+import Tag from './ui/Tag.astro';
 
 type ProjectCategory = 'AI & ML' | 'Backend' | 'Frontend' | 'Embedded' | 'Mobile';
 
@@ -69,26 +72,15 @@ const projects: Project[] = [
 ---
 
 <SectionWrapper id="projects">
-  <!-- Section Header -->
-  <div class="flex items-center gap-4 mb-16">
-    <h2 class="font-mono text-2xl md:text-3xl font-bold">
-      <span class="text-teal-500">04.</span>
-      <span class="ml-2 text-gray-800 dark:text-gray-100">Projects</span>
-    </h2>
-    <div class="flex-1 h-px bg-gray-300 dark:bg-navy-light max-w-xs"></div>
-  </div>
+  <SectionHeading number="04" title="Projects" />
 
   <!-- Category Filter Pills -->
   <div class="flex flex-wrap gap-3 mb-12">
     {filterCategories.map((category) => (
       <button
         data-filter={category}
-        class:list={[
-          'px-4 py-1.5 rounded-full border text-sm font-mono transition-colors duration-200 cursor-pointer',
-          category === 'All'
-            ? 'bg-teal-500 text-white border-teal-500'
-            : 'bg-white dark:bg-navy-light/30 border border-gray-200 dark:border-navy-light text-gray-500 dark:text-gray-400 hover:text-teal-500 hover:border-teal-500',
-        ]}
+        data-active={category === 'All' ? 'true' : 'false'}
+        class="filter-pill"
       >
         {category}
       </button>
@@ -98,9 +90,11 @@ const projects: Project[] = [
   <!-- Projects Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     {projects.map((project) => (
-      <article
+      <Card
+        as="article"
+        variant="lift"
         data-categories={project.categories.join(',')}
-        class="group bg-white dark:bg-navy-light/30 border border-gray-100 dark:border-navy-light rounded-lg shadow-sm overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+        class="group overflow-hidden p-0"
       >
         <!-- Image Area -->
         <div class="relative h-48 overflow-hidden">
@@ -111,11 +105,11 @@ const projects: Project[] = [
                 alt={project.title}
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div class="absolute inset-0 bg-teal-500/10 group-hover:opacity-0 transition-opacity duration-300" />
+              <div class="absolute inset-0 bg-primary/10 group-hover:opacity-0 transition-opacity duration-300" />
             </>
           ) : (
             <div class="w-full h-full bg-linear-to-br from-gray-100 to-gray-200 dark:from-navy-light dark:to-background-dark flex items-center justify-center">
-              <Icon name="code-brackets" class="w-10 h-10 text-teal-500/30" />
+              <Icon name="code-brackets" class="w-10 h-10 text-primary/30" />
             </div>
           )}
         </div>
@@ -124,7 +118,7 @@ const projects: Project[] = [
         <div class="p-6">
           <!-- Title Row with Action Links -->
           <div class="flex items-start justify-between gap-4 mb-3">
-            <h3 class="text-base font-bold text-gray-800 dark:text-gray-100 group-hover:text-teal-500 transition-colors duration-200 leading-snug">
+            <h3 class="text-base font-bold text-text-light dark:text-text-dark group-hover:text-primary transition-colors duration-200 leading-snug">
               {project.title}
             </h3>
             <div class="flex items-center gap-2 shrink-0">
@@ -133,7 +127,7 @@ const projects: Project[] = [
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`View ${project.title} source code on GitHub`}
-                class="text-gray-400 hover:text-teal-500 transition-colors duration-200"
+                class="text-muted-light dark:text-muted-dark hover:text-primary transition-colors duration-200"
               >
                 <Icon name="code-brackets" class="w-4 h-4" />
               </a>
@@ -143,7 +137,7 @@ const projects: Project[] = [
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`View ${project.title} live site`}
-                  class="text-gray-400 hover:text-teal-500 transition-colors duration-200"
+                  class="text-muted-light dark:text-muted-dark hover:text-primary transition-colors duration-200"
                 >
                   <Icon name="external-link" class="w-4 h-4" />
                 </a>
@@ -152,20 +146,16 @@ const projects: Project[] = [
           </div>
 
           <!-- Description -->
-          <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-4">
+          <p class="text-sm text-muted-light dark:text-muted-dark leading-relaxed mb-4">
             {project.description}
           </p>
 
           <!-- Tech Tags -->
           <div class="flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <span class="px-2 py-1 bg-teal-500/5 text-teal-500 text-xs font-mono rounded">
-                {tag}
-              </span>
-            ))}
+            {project.tags.map((tag) => <Tag variant="accent">{tag}</Tag>)}
           </div>
         </div>
-      </article>
+      </Card>
     ))}
   </div>
 </SectionWrapper>
@@ -177,16 +167,7 @@ const projects: Project[] = [
   function applyFilter(selectedFilter: string): void {
     filterButtons.forEach((button) => {
       const isSelected = button.dataset.filter === selectedFilter;
-      button.classList.toggle('bg-teal-500', isSelected);
-      button.classList.toggle('text-white', isSelected);
-      button.classList.toggle('border-teal-500', isSelected);
-      button.classList.toggle('bg-white', !isSelected);
-      button.classList.toggle('text-gray-500', !isSelected);
-      button.classList.toggle('dark:text-gray-400', !isSelected);
-      button.classList.toggle('border-gray-200', !isSelected);
-      button.classList.toggle('dark:border-navy-light', !isSelected);
-      button.classList.toggle('hover:text-teal-500', !isSelected);
-      button.classList.toggle('hover:border-teal-500', !isSelected);
+      button.dataset.active = String(isSelected);
     });
 
     projectCards.forEach((card) => {

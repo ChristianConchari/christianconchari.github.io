@@ -1,0 +1,366 @@
+---
+import { getCollection, render } from 'astro:content';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import CoverPlaceholder from '../../components/ui/CoverPlaceholder.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+
+const allPosts = await getCollection('blog');
+allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const currentIndex = allPosts.findIndex((p) => p.slug === post.slug);
+const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+
+const relatedPosts = allPosts
+  .filter((p) => p.slug !== post.slug && p.data.tags.some((t) => post.data.tags.includes(t)))
+  .slice(0, 2);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+---
+
+<BlogLayout title={post.data.title}>
+  <!-- Reading progress bar -->
+  <div
+    class="sticky top-[var(--blog-header-h)] z-40 h-0.5 bg-gray-200 dark:bg-navy-light"
+    aria-hidden="true"
+  >
+    <div id="progress-fill" class="h-full bg-primary" style="width: 0%; transition: none;" />
+  </div>
+
+  <!-- Post layout: main + sidebar -->
+  <div
+    class="max-w-5xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-[1fr_260px] items-start"
+  >
+    <!-- Main content -->
+    <article class="py-12 lg:pr-10 lg:border-r border-gray-200 dark:border-navy-light min-w-0">
+      <!-- Breadcrumb -->
+      <nav class="text-xs font-mono text-muted-light dark:text-muted-dark mb-6 flex items-center gap-1.5">
+        <a href="/blog" class="text-primary hover:underline no-underline">Blog</a>
+        <span>›</span>
+        <span>{post.data.tags[0]}</span>
+      </nav>
+
+      <!-- Cover image placeholder -->
+      <CoverPlaceholder letter={post.data.tags[0]?.[0]} size="lg" class="rounded-md mb-9" />
+
+      <!-- Post header -->
+      <header class="mb-8">
+        <div class="flex gap-2 flex-wrap mb-3.5">
+          {
+            post.data.tags.map((tag, i) => (
+              <span
+                class={`text-xs px-2.5 py-0.5 rounded-sm border font-mono ${i === 0 ? 'border-primary text-primary' : 'border-gray-200 dark:border-navy-light text-muted-light dark:text-muted-dark'}`}
+              >
+                {tag}
+              </span>
+            ))
+          }
+        </div>
+        <h1 class="text-2xl md:text-3xl font-bold text-text-light dark:text-text-dark leading-tight mb-3.5">
+          {post.data.title}
+        </h1>
+        <div class="flex items-center gap-2 text-xs text-muted-light dark:text-muted-dark font-mono flex-wrap">
+          <span>{formatDate(post.data.pubDate)}</span>
+          <span class="text-primary/40">▸</span>
+          <span>{post.data.readingTime} min read</span>
+          <span class="text-primary/40">▸</span>
+          <span>by Christian Conchari</span>
+        </div>
+      </header>
+
+      <!-- Post content -->
+      <div class="prose-blog">
+        <Content />
+      </div>
+
+      <!-- Prev / Next navigation -->
+      <footer
+        class="border-t border-gray-200 dark:border-navy-light mt-10 pt-6 flex items-start justify-between gap-4"
+      >
+        {
+          prevPost ? (
+            <a href={`/blog/${prevPost.slug}`} class="flex flex-col gap-1 no-underline group max-w-xs">
+              <span class="text-xs text-muted-light dark:text-muted-dark font-mono">← Previous</span>
+              <span class="text-sm text-text-light dark:text-text-dark group-hover:text-primary transition-colors duration-200 line-clamp-1">
+                {prevPost.data.title}
+              </span>
+            </a>
+          ) : (
+            <div />
+          )
+        }
+        {
+          nextPost && (
+            <a
+              href={`/blog/${nextPost.slug}`}
+              class="flex flex-col gap-1 text-right no-underline group max-w-xs ml-auto"
+            >
+              <span class="text-xs text-muted-light dark:text-muted-dark font-mono">Next →</span>
+              <span class="text-sm text-text-light dark:text-text-dark group-hover:text-primary transition-colors duration-200 line-clamp-1">
+                {nextPost.data.title}
+              </span>
+            </a>
+          )
+        }
+      </footer>
+    </article>
+
+    <!-- Sidebar -->
+    <aside class="hidden lg:block py-12 pl-8 sticky top-[var(--blog-header-h)] self-start max-h-[calc(100vh-var(--blog-header-h))] overflow-y-auto">
+      <!-- Table of Contents -->
+      {
+        headings.length > 0 && (
+          <div class="mb-8">
+            <p class="text-xs font-mono font-bold tracking-widest text-muted-light dark:text-muted-dark uppercase mb-3.5">
+              Table of Contents
+            </p>
+            <nav id="toc">
+              {headings
+                .filter((h) => h.depth <= 3)
+                .map((heading) => (
+                  <a
+                    href={`#${heading.slug}`}
+                    class={`toc-item block text-xs font-mono text-muted-light dark:text-muted-dark py-1.5 border-l-2 border-gray-200 dark:border-navy-light mb-1 hover:text-primary hover:border-primary transition-colors duration-200 no-underline ${heading.depth === 3 ? 'pl-5 text-[11px]' : 'pl-3'}`}
+                    data-heading={heading.slug}
+                  >
+                    {heading.text}
+                  </a>
+                ))}
+            </nav>
+          </div>
+        )
+      }
+
+      <!-- Tags -->
+      <div class="mb-8">
+        <p class="text-xs font-mono font-bold tracking-widest text-muted-light dark:text-muted-dark uppercase mb-3.5">
+          Tags
+        </p>
+        <div class="flex gap-1.5 flex-wrap">
+          {
+            post.data.tags.map((tag, i) => (
+              <a
+                href={`/blog`}
+                class={`text-xs px-2.5 py-0.5 border rounded-sm font-mono no-underline transition-colors duration-200 hover:bg-primary/10 hover:border-primary hover:text-primary ${i === 0 ? 'border-primary text-primary' : 'border-gray-200 dark:border-navy-light text-muted-light dark:text-muted-dark'}`}
+              >
+                {tag}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Related Posts -->
+      {
+        relatedPosts.length > 0 && (
+          <div>
+            <p class="text-xs font-mono font-bold tracking-widest text-muted-light dark:text-muted-dark uppercase mb-3.5">
+              Related Posts
+            </p>
+            {relatedPosts.map((related) => (
+              <a
+                href={`/blog/${related.slug}`}
+                class="flex gap-2.5 p-3 border border-gray-200 dark:border-navy-light rounded-md mb-2.5 hover:border-primary transition-colors duration-200 no-underline group"
+              >
+                <CoverPlaceholder letter={related.data.tags[0]?.[0]} size="sm" class="rounded" />
+                <div class="min-w-0">
+                  <p class="text-xs text-text-light dark:text-text-dark leading-snug line-clamp-2 group-hover:text-primary transition-colors duration-200 m-0">
+                    {related.data.title}
+                  </p>
+                  <p class="text-xs text-muted-light dark:text-muted-dark font-mono mt-1 m-0">
+                    {related.data.readingTime} min ·{' '}
+                    {related.data.pubDate.toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                    })}
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </aside>
+  </div>
+</BlogLayout>
+
+<script>
+  // Reading progress bar
+  const progressFill = document.getElementById('progress-fill');
+  if (progressFill) {
+    const updateProgress = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressFill.style.width = `${Math.min(progress, 100)}%`;
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+  }
+
+  // TOC active heading highlight
+  const tocLinks = document.querySelectorAll<HTMLAnchorElement>('[data-heading]');
+  if (tocLinks.length > 0) {
+    const headingEls = document.querySelectorAll<HTMLElement>('h2[id], h3[id]');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            tocLinks.forEach((link) => {
+              link.style.color = '';
+              link.style.borderLeftColor = '';
+            });
+            const active = document.querySelector<HTMLAnchorElement>(
+              `[data-heading="${entry.target.id}"]`
+            );
+            if (active) {
+              active.style.color = 'var(--color-primary)';
+              active.style.borderLeftColor = 'var(--color-primary)';
+            }
+          }
+        });
+      },
+      { rootMargin: '-10% 0px -70% 0px' }
+    );
+    headingEls.forEach((el) => observer.observe(el));
+  }
+</script>
+
+<style>
+  .prose-blog :global(h2) {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-top: 2.25rem;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-mono);
+    scroll-margin-top: 80px;
+  }
+
+  .prose-blog :global(h3) {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-mono);
+    scroll-margin-top: 80px;
+  }
+
+  :global(.dark) .prose-blog :global(h3) {
+    color: var(--color-text-dark);
+  }
+
+  .prose-blog :global(p) {
+    font-size: 0.9375rem;
+    line-height: 1.8;
+    color: var(--color-text-light);
+    margin-bottom: 1.25rem;
+  }
+
+  :global(.dark) .prose-blog :global(p) {
+    color: var(--color-text-dark);
+  }
+
+  .prose-blog :global(code:not(pre code)) {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    background: #e2e8f0;
+    color: var(--color-secondary);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  :global(.dark) .prose-blog :global(code:not(pre code)) {
+    background: var(--color-navy-light);
+    color: var(--color-primary);
+  }
+
+  .prose-blog :global(pre) {
+    background: var(--color-navy-light);
+    border: 1px solid #1e3a5f;
+    border-left: 3px solid var(--color-primary);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .prose-blog :global(pre code) {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    background: transparent;
+    padding: 0;
+    color: var(--color-text-dark);
+  }
+
+  .prose-blog :global(ul),
+  .prose-blog :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .prose-blog :global(li) {
+    font-size: 0.9375rem;
+    line-height: 1.8;
+    color: var(--color-text-light);
+    margin-bottom: 0.375rem;
+  }
+
+  :global(.dark) .prose-blog :global(li) {
+    color: var(--color-text-dark);
+  }
+
+  .prose-blog :global(a) {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity 0.15s;
+  }
+
+  .prose-blog :global(a:hover) {
+    opacity: 0.8;
+  }
+
+  .prose-blog :global(blockquote) {
+    border-left: 3px solid var(--color-primary);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: var(--color-muted-light);
+    font-style: italic;
+  }
+
+  :global(.dark) .prose-blog :global(blockquote) {
+    color: var(--color-muted-dark);
+  }
+
+  .prose-blog :global(strong) {
+    font-weight: 600;
+    color: var(--color-text-light);
+  }
+
+  :global(.dark) .prose-blog :global(strong) {
+    color: var(--color-text-dark);
+  }
+
+  .prose-blog :global(hr) {
+    border: none;
+    border-top: 1px solid #e2e8f0;
+    margin: 2rem 0;
+  }
+
+  :global(.dark) .prose-blog :global(hr) {
+    border-top-color: var(--color-navy-light);
+  }
+</style>

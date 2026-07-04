@@ -3,6 +3,7 @@ import astroLogo from '../assets/astro.svg';
 import background from '../assets/background.svg';
 import heroLogo from '../assets/hero-logo-v1.png';
 import ScrollIndicator from './ScrollIndicator.astro';
+import Button from './ui/Button.astro';
 ---
 
 <div class="h-full font-sans md:flex md:flex-col md:justify-center">
@@ -16,29 +17,29 @@ import ScrollIndicator from './ScrollIndicator.astro';
         id="heroTextContent"
       >
         <h1
-          class="mt-14 font-mono text-2xl font-medium text-teal-500 md:mt-24 md:text-3xl"
+          class="text-primary mt-14 font-mono text-2xl font-medium md:mt-24 md:text-3xl"
           id="heroGreeting"
         >
           Hi! I'm <p
-            class="my-5 text-5xl font-extrabold text-gray-800 md:my-8 md:w-150 md:text-8xl dark:text-gray-100"
+            class="text-text-light dark:text-text-dark my-5 text-5xl font-extrabold md:my-8 md:w-150 md:text-8xl"
           >
             Christian Conchari
           </p>
         </h1>
 
         <h3
-          class="my-4 font-mono text-2xl font-medium text-teal-500 md:my-6 md:text-3xl"
+          class="text-primary my-4 font-mono text-2xl font-medium md:my-6 md:text-3xl"
           id="heroSubtitle"
         >
           Software Architect | ML Engineer
         </h3>
 
         <p
-          class="text-md mt-8 max-w-2xl font-normal text-gray-800 md:mt-10 md:text-xl dark:text-gray-100"
+          class="text-text-light dark:text-text-dark text-md mt-8 max-w-2xl font-normal md:mt-10 md:text-xl"
           id="heroDescription"
         >
-          I'm a <span class="text-teal-400">Software Architect</span> and <span
-            class="text-teal-400"
+          I'm a <span class="text-primary">Software Architect</span> and <span
+            class="text-primary"
           >
             ML Engineer
           </span> specializing in building robust web applications and machine learning
@@ -51,20 +52,12 @@ import ScrollIndicator from './ScrollIndicator.astro';
       class="z-0 mt-8 flex items-center justify-center"
       id="heroButtonSection"
     >
-      <a
-        href="#contact"
-        class="m-4 rounded bg-teal-500 px-6 py-3 font-mono text-white no-underline hover:bg-teal-600 md:mx-6"
-        id="contactButton"
-      >
+      <Button href="#contact" variant="solid" id="contactButton" class="m-4 px-6 py-3 md:mx-6">
         Contact Me
-      </a>
-      <a
-        href="#projects"
-        class="m-4 rounded border-2 border-teal-500 px-6 py-3 font-mono text-teal-500 no-underline hover:bg-teal-100 md:mx-6"
-        id="portfolioButton"
-      >
+      </Button>
+      <Button href="#projects" variant="outline" id="portfolioButton" class="m-4 px-6 py-3 md:mx-6">
         View Portfolio
-      </a>
+      </Button>
     </section>
     <ScrollIndicator targetId="about" />
   </main>

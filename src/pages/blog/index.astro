@@ -1,0 +1,136 @@
+---
+import { getCollection } from 'astro:content';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import CoverPlaceholder from '../../components/ui/CoverPlaceholder.astro';
+import Tag from '../../components/ui/Tag.astro';
+
+const posts = await getCollection('blog');
+posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+---
+
+<BlogLayout title="Blog" activeTab="all">
+  <!-- Hero -->
+  <section
+    class="bg-background-light dark:bg-background-dark border-b border-gray-200 dark:border-navy-light px-6 md:px-12 pt-16 pb-12"
+  >
+    <h1 class="text-5xl font-bold font-mono text-text-light dark:text-text-dark mb-4">Blog</h1>
+    <p class="text-lg text-muted-light dark:text-muted-dark max-w-xl leading-relaxed">
+      Thoughts on software architecture, machine learning, and building things that last.
+    </p>
+  </section>
+
+  <!-- Filter bar -->
+  <div
+    class="sticky top-[var(--blog-header-h)] z-40 bg-background-light dark:bg-background-dark border-b border-gray-200 dark:border-navy-light px-6 md:px-12 py-4 flex items-center gap-3 flex-wrap transition-colors duration-300"
+  >
+    <span class="text-sm text-muted-light dark:text-muted-dark font-mono uppercase tracking-widest mr-1"
+      >Filter:</span
+    >
+    <button class="filter-pill" data-tag="all" data-active="true">All</button>
+    {allTags.map((tag) => <button class="filter-pill" data-tag={tag} data-active="false">{tag}</button>)}
+    <div class="ml-auto">
+      <input
+        type="search"
+        id="search-input"
+        placeholder="Search posts…"
+        class="bg-white dark:bg-navy-light border border-gray-200 dark:border-navy-light rounded px-4 py-2 text-sm text-text-light dark:text-text-dark font-mono w-48 focus:outline-none focus:border-primary transition-colors duration-200 placeholder:text-muted-light dark:placeholder:text-muted-dark"
+      />
+    </div>
+  </div>
+
+  <!-- Post grid -->
+  <div class="max-w-5xl mx-auto px-6 md:px-12 py-12">
+    <p class="text-sm text-muted-light dark:text-muted-dark font-mono uppercase tracking-widest mb-6">
+      All posts
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="posts-grid">
+      {
+        posts.map((post) => (
+          <a
+            href={`/blog/${post.slug}`}
+            class="post-card group bg-white dark:bg-background-dark border border-gray-200 dark:border-navy-light rounded-md overflow-hidden flex flex-col hover:border-primary transition-colors duration-200 no-underline"
+            data-tags={post.data.tags.join(',')}
+            data-title={post.data.title.toLowerCase()}
+          >
+            <CoverPlaceholder letter={post.data.tags[0]?.[0]} size="md">
+              <div class="absolute bottom-3 left-4">
+                <span class="text-sm text-primary/50 font-mono">{post.data.tags[0]}</span>
+              </div>
+            </CoverPlaceholder>
+
+            <div class="p-5 flex flex-col gap-3 flex-1">
+              <div class="flex gap-2 flex-wrap">
+                {post.data.tags.slice(0, 2).map((tag) => (
+                  <Tag variant="neutral">{tag}</Tag>
+                ))}
+              </div>
+              <h2 class="text-xl font-bold text-text-light dark:text-text-dark leading-snug group-hover:text-primary transition-colors duration-200 m-0">
+                {post.data.title}
+              </h2>
+              <p class="text-base text-muted-light dark:text-muted-dark leading-relaxed line-clamp-2 m-0">
+                {post.data.description}
+              </p>
+              <div class="flex items-center gap-2 text-base text-muted-light dark:text-muted-dark mt-auto font-mono pt-1">
+                <span>{formatDate(post.data.pubDate)}</span>
+                <span class="text-primary/40">▸</span>
+                <span>{post.data.readingTime} min</span>
+              </div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <div
+      id="no-results"
+      class="hidden text-center py-16 text-muted-light dark:text-muted-dark font-mono text-base"
+    >
+      No posts match your filter.
+    </div>
+  </div>
+</BlogLayout>
+
+<script>
+  const tagBtns = document.querySelectorAll<HTMLButtonElement>('.filter-pill');
+  const postCards = document.querySelectorAll<HTMLAnchorElement>('.post-card');
+  const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
+  const noResults = document.getElementById('no-results');
+
+  let activeTag = 'all';
+  let searchQuery = '';
+
+  function filterPosts() {
+    let visible = 0;
+    postCards.forEach((card) => {
+      const tags = card.dataset.tags?.split(',') ?? [];
+      const title = card.dataset.title ?? '';
+      const matchesTag = activeTag === 'all' || tags.includes(activeTag);
+      const matchesSearch = !searchQuery || title.includes(searchQuery);
+      const show = matchesTag && matchesSearch;
+      (card as HTMLElement).style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (noResults) noResults.style.display = visible === 0 ? '' : 'none';
+  }
+
+  tagBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      tagBtns.forEach((b) => (b.dataset.active = 'false'));
+      btn.dataset.active = 'true';
+      activeTag = btn.dataset.tag ?? 'all';
+      filterPosts();
+    });
+  });
+
+  searchInput?.addEventListener('input', (e) => {
+    searchQuery = (e.target as HTMLInputElement).value.trim().toLowerCase();
+    filterPosts();
+  });
+</script>

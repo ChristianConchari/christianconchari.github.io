@@ -1,0 +1,63 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import Button from './ui/Button.astro';
+
+interface Props {
+  activeTab?: 'all' | 'tags' | 'about';
+}
+const { activeTab = 'all' } = Astro.props;
+---
+
+<header
+  id="blogHeader"
+  class="sticky top-0 z-50 bg-background-light dark:bg-background-dark border-b border-gray-200 dark:border-navy-light flex items-center justify-between p-4 md:px-6 md:py-4 gap-2 md:gap-4 lg:gap-8 transition-colors duration-300"
+>
+  <div class="flex items-center gap-3 md:gap-4">
+    <Button
+      href="/"
+      variant="outline"
+      class="shrink-0 px-3 py-1.5 text-sm whitespace-nowrap md:px-4 md:py-2 md:text-xs lg:px-6 lg:py-3 lg:text-lg"
+    >
+      ← christian.dev
+    </Button>
+    <div class="w-px h-5 bg-gray-200 dark:bg-navy-light hidden md:block"></div>
+    <span class="hidden md:inline font-bold text-text-light dark:text-text-dark lg:text-lg">Blog</span>
+  </div>
+
+  <nav class="hidden md:flex items-center gap-6 lg:gap-8">
+    <a
+      href="/blog"
+      class={`font-mono font-bold no-underline whitespace-nowrap transition-colors duration-300 lg:text-lg ${activeTab === 'all' ? 'text-primary' : 'text-text-light dark:text-text-dark hover:text-primary'}`}
+    >
+      All Posts
+    </a>
+    <a
+      href="/blog"
+      class={`font-mono font-bold no-underline whitespace-nowrap transition-colors duration-300 lg:text-lg ${activeTab === 'tags' ? 'text-primary' : 'text-text-light dark:text-text-dark hover:text-primary'}`}
+    >
+      Tags
+    </a>
+    <a
+      href="/#about"
+      class={`font-mono font-bold no-underline whitespace-nowrap transition-colors duration-300 lg:text-lg ${activeTab === 'about' ? 'text-primary' : 'text-text-light dark:text-text-dark hover:text-primary'}`}
+    >
+      About
+    </a>
+  </nav>
+
+  <div class="flex items-center gap-2 md:gap-4">
+    <ThemeToggle />
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('blogHeader');
+
+  function syncHeaderHeight() {
+    if (!header) return;
+    document.documentElement.style.setProperty('--blog-header-h', `${header.offsetHeight}px`);
+  }
+
+  syncHeaderHeight();
+  window.addEventListener('resize', syncHeaderHeight);
+</script>
