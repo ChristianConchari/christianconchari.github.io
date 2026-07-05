@@ -24,13 +24,13 @@ const navItems = [
   class="bg-background-light dark:bg-background-dark transition-colors duration-300"
 >
   <div
-    class="flex items-center justify-between gap-2 p-4 md:gap-4 md:px-6 md:py-4 lg:gap-8"
+    class="grid grid-cols-[1fr_auto_1fr] items-center gap-2 p-4 md:gap-4 md:px-6 md:py-4 lg:gap-8"
   >
     <HeaderInitials />
 
     <!-- Menu Toggle (Mobile) -->
     <button
-      class="group flex cursor-pointer flex-col gap-1.25 border-none bg-transparent p-0 md:hidden"
+      class="group flex cursor-pointer flex-col gap-1.25 justify-self-end border-none bg-transparent p-0 md:hidden"
       id="menuToggle"
       aria-label="Toggle menu"
     >
@@ -39,11 +39,11 @@ const navItems = [
 
     <!-- Nav Menu -->
     <nav
-      class="bg-background-light dark:bg-background-dark absolute top-15 right-0 left-0 z-50 max-h-0 overflow-hidden border-b transition-[max-height,background-color] duration-300 md:static md:flex md:max-h-none md:flex-1 md:overflow-visible md:border-none [&.active]:max-h-105"
+      class="bg-background-light dark:bg-background-dark absolute top-15 right-0 left-0 z-50 max-h-0 overflow-hidden border-b transition-[max-height,background-color] duration-300 md:static md:flex md:max-h-none md:overflow-visible md:border-none [&.active]:max-h-105"
       id="navMenu"
     >
       <ul
-        class="text-text-light dark:text-text-dark m-0 flex list-none flex-col gap-0 p-4 md:flex-row md:gap-8 md:p-0"
+        class="text-text-light dark:text-text-dark m-0 flex list-none flex-col gap-0 p-4 md:flex-row md:items-center md:gap-8 md:p-0"
       >
         {
           navItems.map((item) => (
@@ -65,12 +65,12 @@ const navItems = [
       </ul>
     </nav>
 
-    <div class="flex items-center gap-2 md:gap-4">
+    <div class="flex items-center justify-self-end gap-2 md:gap-4">
       <ThemeToggle />
       <Button
         href="/blog"
         variant="outline"
-        class="shrink-0 px-3 py-1.5 text-sm md:px-4 md:py-2 md:text-xs lg:px-6 lg:py-3 lg:text-lg"
+        class="h-9 shrink-0 px-3 text-sm md:h-10 md:px-4 lg:h-[50px] lg:px-6 lg:text-lg"
       >
         Blog
       </Button>
@@ -79,7 +79,7 @@ const navItems = [
         target="_blank"
         rel="noopener noreferrer"
         variant="outline"
-        class="shrink-0 px-3 py-1.5 text-sm md:px-4 md:py-2 md:text-xs lg:px-6 lg:py-3 lg:text-lg"
+        class="h-9 shrink-0 px-3 text-sm md:h-10 md:px-4 lg:h-[50px] lg:px-6 lg:text-lg"
       >
         Resume
       </Button>

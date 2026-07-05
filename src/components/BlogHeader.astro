@@ -10,13 +10,13 @@ const { activeTab = 'all' } = Astro.props;
 
 <header
   id="blogHeader"
-  class="sticky top-0 z-50 bg-background-light dark:bg-background-dark border-b border-gray-200 dark:border-navy-light flex items-center justify-between p-4 md:px-6 md:py-4 gap-2 md:gap-4 lg:gap-8 transition-colors duration-300"
+  class="sticky top-0 z-50 bg-background-light dark:bg-background-dark border-b border-gray-200 dark:border-navy-light grid grid-cols-[1fr_auto_1fr] items-center p-4 md:px-6 md:py-4 gap-2 md:gap-4 lg:gap-8 transition-colors duration-300"
 >
-  <div class="flex items-center gap-3 md:gap-4">
+  <div class="flex items-center gap-3 justify-self-start md:gap-4">
     <Button
       href="/"
       variant="outline"
-      class="shrink-0 px-3 py-1.5 text-sm whitespace-nowrap md:px-4 md:py-2 md:text-xs lg:px-6 lg:py-3 lg:text-lg"
+      class="h-9 shrink-0 px-3 text-sm whitespace-nowrap md:h-10 md:px-4 lg:h-[50px] lg:px-6 lg:text-lg"
     >
       ← christian.dev
     </Button>
@@ -39,7 +39,7 @@ const { activeTab = 'all' } = Astro.props;
     </a>
   </nav>
 
-  <div class="flex items-center gap-2 md:gap-4">
+  <div class="flex items-center justify-self-end gap-2 md:gap-4">
     <ThemeToggle />
   </div>
 </header>
