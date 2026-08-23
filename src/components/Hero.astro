@@ -1,63 +1,109 @@
 ---
-import astroLogo from '../assets/astro.svg';
-import background from '../assets/background.svg';
-import heroLogo from '../assets/hero-logo-v1.png';
+import { RESUME_EN_PATH } from '../constants';
+import Icon from './Icon.astro';
 import ScrollIndicator from './ScrollIndicator.astro';
 import Button from './ui/Button.astro';
+
+const links = [
+  { label: 'GitHub', href: 'https://github.com/christianconchari', external: true },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/chrisconchari', external: true },
+  { label: 'Download Résumé', href: RESUME_EN_PATH, external: true },
+];
 ---
 
-<div class="h-full font-sans md:flex md:flex-col md:justify-center">
-  <main class="relative flex h-full flex-col items-center justify-center">
-    <section
-      class="grid w-full max-w-350 grid-cols-1 items-center justify-center gap-4 px-16"
-      id="heroTitleSection"
-    >
-      <div
-        class="z-10 flex flex-col items-center text-center"
-        id="heroTextContent"
-      >
-        <h1
-          class="text-primary mt-14 font-mono text-2xl font-medium md:mt-24 md:text-3xl"
-          id="heroGreeting"
-        >
-          Hi! I'm <p
-            class="text-text-light dark:text-text-dark my-5 text-5xl font-extrabold md:my-8 md:w-150 md:text-8xl"
-          >
-            Christian Conchari
-          </p>
+<div class="font-sans">
+  <main class="relative">
+    <section class="mx-auto grid w-full max-w-350 grid-cols-1 gap-16 px-6 pt-24 pb-20 md:px-12 md:pt-28 lg:grid-cols-[300px_1fr] lg:gap-22 lg:px-16 lg:pt-32">
+      <!-- Letterhead -->
+      <div class="flex flex-col">
+        <h1 class="text-text-light dark:text-text-dark font-mono text-2xl leading-snug font-bold tracking-wide uppercase">
+          Christian<br />Conchari
         </h1>
+        <p class="text-primary mt-3 text-base font-medium">Software Architect | ML Engineer</p>
 
-        <h3
-          class="text-primary my-4 font-mono text-2xl font-medium md:my-6 md:text-3xl"
-          id="heroSubtitle"
-        >
-          Software Architect | ML Engineer
-        </h3>
+        <div class="dark:bg-navy-light my-8 h-px bg-gray-200"></div>
 
-        <p
-          class="text-text-light dark:text-text-dark text-md mt-8 max-w-2xl font-normal md:mt-10 md:text-xl"
-          id="heroDescription"
-        >
-          I'm a <span class="text-primary">Software Architect</span> and <span
-            class="text-primary"
-          >
-            ML Engineer
-          </span> specializing in building robust web applications and machine learning
-          solutions. With a passion for technology and innovation, I strive to create
-          impactful digital experiences.
-        </p>
+        <dl class="flex flex-col gap-6">
+          <div>
+            <dt class="text-muted-light dark:text-muted-dark font-mono text-xs font-bold tracking-widest uppercase">
+              Focus
+            </dt>
+            <dd class="text-text-light dark:text-text-dark mt-1.5 leading-snug">
+              Computer Vision, Embedded AI, Software Architecture
+            </dd>
+          </div>
+          <div>
+            <dt class="text-muted-light dark:text-muted-dark font-mono text-xs font-bold tracking-widest uppercase">
+              Publications
+            </dt>
+            <dd class="text-text-light dark:text-text-dark mt-1.5 leading-snug">
+              1 IEEE Conference Paper (2024)
+            </dd>
+          </div>
+          <div>
+            <dt class="text-muted-light dark:text-muted-dark font-mono text-xs font-bold tracking-widest uppercase">
+              Open to
+            </dt>
+            <dd class="text-text-light dark:text-text-dark mt-1.5 leading-snug">
+              Research collaboration &amp; new ventures
+            </dd>
+          </div>
+        </dl>
+
+        <div class="mt-10 flex flex-col">
+          {
+            links.map((link, index) => (
+              <a
+                href={link.href}
+                target={link.external ? '_blank' : undefined}
+                rel={link.external ? 'noopener noreferrer' : undefined}
+                class:list={[
+                  'group text-text-light dark:text-text-dark hover:text-primary flex items-center justify-between py-3.5 font-mono text-sm transition-colors duration-200',
+                  { 'border-b border-gray-200 dark:border-navy-light': index !== links.length - 1 },
+                ]}
+              >
+                {link.label}
+                <Icon
+                  name="arrow-right"
+                  class="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1"
+                />
+              </a>
+            ))
+          }
+        </div>
       </div>
-    </section>
-    <section
-      class="z-0 mt-8 flex items-center justify-center"
-      id="heroButtonSection"
-    >
-      <Button href="#contact" variant="solid" id="contactButton" class="m-4 px-6 py-3 md:mx-6">
-        Contact Me
-      </Button>
-      <Button href="#projects" variant="outline" id="portfolioButton" class="m-4 px-6 py-3 md:mx-6">
-        View Portfolio
-      </Button>
+
+      <!-- Overview -->
+      <div class="max-w-3xl">
+        <p class="text-primary font-mono text-sm font-bold tracking-widest uppercase">
+          01 &mdash; Overview
+        </p>
+
+        <h2 class="text-text-light dark:text-text-dark mt-5 text-3xl leading-snug font-semibold md:text-4xl lg:text-[2.6rem]">
+          Bridging experimental machine learning and production-grade software.
+        </h2>
+
+        <p class="text-muted-light dark:text-muted-dark mt-8 text-lg leading-relaxed">
+          I began in research, working closely with <span class="text-primary">computer vision</span> and{' '}
+          <span class="text-primary">embedded AI</span> systems, before moving into full-stack development and{' '}
+          <span class="text-primary">software architecture</span>. Today I focus on the space between the
+          two&mdash;designing robust, scalable systems that carry machine learning models reliably into
+          production.
+        </p>
+
+        <p class="text-text-light dark:text-text-dark mt-10 max-w-md text-lg leading-relaxed italic md:ml-8">
+          &ldquo;The future belongs to decentralized, open systems that maximize individual agency.&rdquo;
+        </p>
+
+        <div class="mt-11 flex flex-wrap gap-4">
+          <Button href="#contact" variant="solid" class="px-8 py-4">
+            Contact Me
+          </Button>
+          <Button href="#projects" variant="outline" class="px-7 py-3.5">
+            View Portfolio
+          </Button>
+        </div>
+      </div>
     </section>
     <ScrollIndicator targetId="about" />
   </main>
