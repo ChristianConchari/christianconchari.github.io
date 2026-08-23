@@ -4,10 +4,24 @@ import '../styles/global.css';
 
 interface Props {
   title: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
   activeTab?: 'all' | 'about';
   lang?: 'en' | 'es';
 }
-const { title, activeTab, lang = 'en' } = Astro.props;
+const {
+  title,
+  description = 'Christian Conchari — software engineer writing about AI agents, cloud, and software engineering practice.',
+  image,
+  canonicalURL,
+  activeTab,
+  lang = 'en',
+} = Astro.props;
+
+const resolvedCanonical = canonicalURL ?? Astro.url.href;
+const resolvedImage = image ?? new URL('/favicon.png', Astro.site).href;
+const ogLocale = lang === 'es' ? 'es_ES' : 'en_US';
 ---
 
 <!doctype html>
@@ -29,6 +43,21 @@ const { title, activeTab, lang = 'en' } = Astro.props;
     />
     <meta name="generator" content={Astro.generator} />
     <title>{title} — Christian Conchari</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={resolvedCanonical} />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Christian Conchari" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={resolvedCanonical} />
+    <meta property="og:image" content={resolvedImage} />
+    <meta property="og:locale" content={ogLocale} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedImage} />
     <script is:inline>
       const theme =
         localStorage.getItem('theme') ||

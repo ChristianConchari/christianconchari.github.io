@@ -53,7 +53,12 @@ function formatDate(date: Date) {
 }
 ---
 
-<BlogLayout title={post.data.title} lang={post.data.lang}>
+<BlogLayout
+  title={post.data.title}
+  description={post.data.description}
+  canonicalURL={new URL(Astro.url.pathname, Astro.site).href}
+  lang={post.data.lang}
+>
   <!-- Reading progress bar -->
   <div
     class="sticky top-[var(--blog-header-h)] z-40 h-0.5 bg-gray-200 dark:bg-navy-light"
