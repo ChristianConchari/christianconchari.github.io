@@ -6,7 +6,20 @@ import Tag from '../../components/ui/Tag.astro';
 import Icon from '../../components/Icon.astro';
 import { topicIndex, TOPIC_TEXT, TOPIC_CHIP_BG } from '../../utils/topics';
 
-const posts = await getCollection('blog');
+const allEntries = await getCollection('blog');
+
+// A post with an ES/EN translation pair shares one translationKey — show
+// just one card for it (preferring Spanish, the primary audience). The
+// post page itself offers a switcher to read the other language.
+const byTranslationKey = new Map<string, (typeof allEntries)[number]>();
+for (const entry of allEntries) {
+  const key = entry.data.translationKey ?? entry.slug;
+  const existing = byTranslationKey.get(key);
+  if (!existing || (entry.data.lang === 'es' && existing.data.lang !== 'es')) {
+    byTranslationKey.set(key, entry);
+  }
+}
+const posts = [...byTranslationKey.values()];
 posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
 const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();

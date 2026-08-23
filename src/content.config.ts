@@ -12,6 +12,8 @@ const blog = defineCollection({
       featured: z.boolean().default(false),
       cover: image().optional(),
       coverAlt: z.string().optional(),
+      lang: z.enum(['en', 'es']).default('en'),
+      translationKey: z.string().optional(),
     }),
 });
 

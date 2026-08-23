@@ -17,20 +17,43 @@ const { Content, headings } = await render(post);
 const allPosts = await getCollection('blog');
 allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
-const currentIndex = allPosts.findIndex((p) => p.slug === post.slug);
-const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
-const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+// Prev/next/related stay within the same language so navigation never
+// jumps a reader mid-article into a translation of something else.
+const sameLangPosts = allPosts.filter((p) => p.data.lang === post.data.lang);
 
-const relatedPosts = allPosts
+const currentIndex = sameLangPosts.findIndex((p) => p.slug === post.slug);
+const prevPost = currentIndex < sameLangPosts.length - 1 ? sameLangPosts[currentIndex + 1] : null;
+const nextPost = currentIndex > 0 ? sameLangPosts[currentIndex - 1] : null;
+
+const relatedPosts = sameLangPosts
   .filter((p) => p.slug !== post.slug && p.data.tags.some((t) => post.data.tags.includes(t)))
   .slice(0, 2);
 
+const translation = post.data.translationKey
+  ? allPosts.find(
+      (p) => p.slug !== post.slug && p.data.translationKey === post.data.translationKey
+    )
+  : undefined;
+
+const isEs = post.data.lang === 'es';
+const locale = isEs ? 'es-ES' : 'en-US';
+const t = {
+  minRead: isEs ? 'min de lectura' : 'min read',
+  by: isEs ? 'por' : 'by',
+  switchTo: isEs ? 'Read in English' : 'Leer en español',
+  previous: isEs ? '← Anterior' : '← Previous',
+  next: isEs ? 'Siguiente →' : 'Next →',
+  toc: isEs ? 'Tabla de contenidos' : 'Table of Contents',
+  tags: isEs ? 'Etiquetas' : 'Tags',
+  related: isEs ? 'Posts relacionados' : 'Related Posts',
+};
+
 function formatDate(date: Date) {
-  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  return date.toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' });
 }
 ---
 
-<BlogLayout title={post.data.title}>
+<BlogLayout title={post.data.title} lang={post.data.lang}>
   <!-- Reading progress bar -->
   <div
     class="sticky top-[var(--blog-header-h)] z-40 h-0.5 bg-gray-200 dark:bg-navy-light"
@@ -80,9 +103,22 @@ function formatDate(date: Date) {
         <div class="flex items-center gap-2 text-xs text-muted-light dark:text-muted-dark font-mono flex-wrap">
           <span>{formatDate(post.data.pubDate)}</span>
           <span class="text-primary/40">▸</span>
-          <span>{post.data.readingTime} min read</span>
+          <span>{post.data.readingTime} {t.minRead}</span>
           <span class="text-primary/40">▸</span>
-          <span>by Christian Conchari</span>
+          <span>{t.by} Christian Conchari</span>
+          {
+            translation && (
+              <>
+                <span class="text-primary/40">▸</span>
+                <a
+                  href={`/blog/${translation.slug}`}
+                  class="text-primary hover:underline no-underline"
+                >
+                  {t.switchTo}
+                </a>
+              </>
+            )
+          }
         </div>
       </header>
 
@@ -98,7 +134,7 @@ function formatDate(date: Date) {
         {
           prevPost ? (
             <a href={`/blog/${prevPost.slug}`} class="flex flex-col gap-1 no-underline group max-w-xs">
-              <span class="text-xs text-muted-light dark:text-muted-dark font-mono">← Previous</span>
+              <span class="text-xs text-muted-light dark:text-muted-dark font-mono">{t.previous}</span>
               <span class="text-sm text-text-light dark:text-text-dark group-hover:text-primary transition-colors duration-200 line-clamp-1">
                 {prevPost.data.title}
               </span>
@@ -113,7 +149,7 @@ function formatDate(date: Date) {
               href={`/blog/${nextPost.slug}`}
               class="flex flex-col gap-1 text-right no-underline group max-w-xs ml-auto"
             >
-              <span class="text-xs text-muted-light dark:text-muted-dark font-mono">Next →</span>
+              <span class="text-xs text-muted-light dark:text-muted-dark font-mono">{t.next}</span>
               <span class="text-sm text-text-light dark:text-text-dark group-hover:text-primary transition-colors duration-200 line-clamp-1">
                 {nextPost.data.title}
               </span>
@@ -130,7 +166,7 @@ function formatDate(date: Date) {
         headings.length > 0 && (
           <div class="mb-8">
             <p class="text-xs font-mono font-bold tracking-widest text-muted-light dark:text-muted-dark uppercase mb-3.5">
-              Table of Contents
+              {t.toc}
             </p>
             <nav id="toc">
               {headings
@@ -152,7 +188,7 @@ function formatDate(date: Date) {
       <!-- Tags -->
       <div class="mb-8">
         <p class="text-xs font-mono font-bold tracking-widest text-muted-light dark:text-muted-dark uppercase mb-3.5">
-          Tags
+          {t.tags}
         </p>
         <div class="flex gap-1.5 flex-wrap">
           {
@@ -173,7 +209,7 @@ function formatDate(date: Date) {
         relatedPosts.length > 0 && (
           <div>
             <p class="text-xs font-mono font-bold tracking-widest text-muted-light dark:text-muted-dark uppercase mb-3.5">
-              Related Posts
+              {t.related}
             </p>
             {relatedPosts.map((related) => (
               <a
@@ -193,7 +229,7 @@ function formatDate(date: Date) {
                   </p>
                   <p class="text-xs text-muted-light dark:text-muted-dark font-mono mt-1 m-0">
                     {related.data.readingTime} min ·{' '}
-                    {related.data.pubDate.toLocaleDateString('en-US', {
+                    {related.data.pubDate.toLocaleDateString(locale, {
                       month: 'short',
                       day: 'numeric',
                     })}
