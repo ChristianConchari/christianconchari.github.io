@@ -56,7 +56,7 @@ function formatDate(date: Date) {
       <PostCover
         cover={post.data.cover}
         coverAlt={post.data.coverAlt ?? post.data.title}
-        letter={post.data.tags[0]?.[0]}
+        tag={post.data.tags[0]}
         size="lg"
         class="rounded-md mb-9"
       />
@@ -183,7 +183,7 @@ function formatDate(date: Date) {
                 <PostCover
                   cover={related.data.cover}
                   coverAlt={related.data.coverAlt ?? related.data.title}
-                  letter={related.data.tags[0]?.[0]}
+                  tag={related.data.tags[0]}
                   size="sm"
                   class="rounded"
                 />
@@ -301,7 +301,6 @@ function formatDate(date: Date) {
 
   .prose-blog :global(pre) {
     background: var(--color-navy-light);
-    border: 1px solid #1e3a5f;
     border-left: 3px solid var(--color-primary);
     border-radius: 4px;
     padding: 1rem 1.25rem;

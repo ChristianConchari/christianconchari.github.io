@@ -17,15 +17,20 @@ html[data-theme-switching] *::after {
 
 @theme {
   /* Custom Colors */
-  --color-primary: #2dd4bf;
-  --color-secondary: #0f766e;
-  --color-background-light: #f8fafc;
-  --color-background-dark: #0a192f;
-  --color-navy-light: #112240;
-  --color-text-light: #1e293b;
-  --color-text-dark: #ccd6f6;
-  --color-muted-light: #64748b;
-  --color-muted-dark: #94a3b8;
+  --color-primary: #6f97c9;
+  --color-secondary: #023e8a;
+  --color-background-light: #f4f5f8;
+  --color-background-dark: #101116;
+  --color-navy-light: #2b2e39;
+  --color-text-light: #1f2129;
+  --color-text-dark: #f1f2f6;
+  --color-muted-light: #5b5e6e;
+  --color-muted-dark: #a8aabc;
+
+  /* Post cover accents (cycled by topic) */
+  --color-cover-1: #023e8a;
+  --color-cover-2: #444655;
+  --color-cover-3: #a8aabc;
 
   /* Font Families */
   --font-sans: 'Inter', sans-serif;
@@ -33,7 +38,7 @@ html[data-theme-switching] *::after {
 
   /* Custom Box Shadow */
   --shadow-neon:
-    0 0 10px rgba(45, 212, 191, 0.3), 0 0 20px rgba(45, 212, 191, 0.1);
+    0 0 10px rgba(111, 151, 201, 0.3), 0 0 20px rgba(111, 151, 201, 0.1);
 }
 
 /* Shared filter-pill pattern (project/tag filters): style is driven by the
