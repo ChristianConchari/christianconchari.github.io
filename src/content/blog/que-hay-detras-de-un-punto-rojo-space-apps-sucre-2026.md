@@ -49,7 +49,7 @@ Los incendios que vas a analizar los miden dos instrumentos de la NASA:
 
 Son satélites grandes: Terra, lanzado en 1999, pesa unas 5 toneladas. Están muy bien calibrados y suman más de 20 años de datos, y por eso son la referencia.
 
-Y hay noticias de este mismo mes. **Suomi NPP dejó de entregar datos nuevos el 2 de noviembre de 2026**, y **MODIS está en sus últimos meses**: la NASA planea cerrar Terra hacia inicios de 2027. Los datos históricos siguen disponibles, pero el registro de 25 años ahora depende de unir bien ambos sensores. Unirlos bien da para un gran proyecto.
+Y hay noticias de este mismo mes. **Suomi NPP dejó de entregar datos nuevos el 2 de noviembre de 2026**, y **MODIS está en sus últimos meses**: según la NASA, Terra y Aqua empezarán a apagarse entre fines de 2026 e inicios de 2027. Los datos históricos siguen disponibles, pero el registro de 25 años ahora depende de unir bien ambos sensores. Unirlos bien da para un gran proyecto.
 
 ### ¿Y los CubeSats?
 
@@ -274,6 +274,6 @@ Si quieres seguir conversando sobre satélites, datos o tu proyecto, conectemos 
 **Sobre el estado de los satélites:**
 
 - [Earthdata — Transición desde Suomi NPP para usuarios de FIRMS](https://www.earthdata.nasa.gov/news/blog/transitioning-from-suomi-npp-viirs-omps-what-firms-users-need-know)
-- [NASA Science — Operaciones de Terra](https://science.nasa.gov/blogs/science-news/2026/02/12/terra-adjusts-instrument-operations-to-extend-mission-life)
+- [Earthdata — Transición de MODIS a VIIRS](https://www.earthdata.nasa.gov/data/alerts-outages/transition-from-modis-viirs)
 - [LAADS — Transición de MODIS a VIIRS](https://ladsweb.modaps.eosdis.nasa.gov/learn/modis-to-viirs-transition/)
 - [FIRMS FAQ](https://www.earthdata.nasa.gov/data/tools/firms/faq)
