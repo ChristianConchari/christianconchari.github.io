@@ -1,6 +1,6 @@
 ---
-title: "¿Qué hay detrás de un punto rojo en el mapa? Cómo los satélites de la NASA miden incendios, calor y sequía"
-description: "Guía práctica sobre los datos satelitales de la NASA para incendios, calor y sequía: de dónde salen los puntos de calor de MODIS y VIIRS, qué trampas esconden y cómo empezar a analizarlos, con un notebook listo para Colab."
+title: "CubeSats aplicados a la observación de la Tierra: qué hay detrás de un punto rojo en el mapa"
+description: "Guía práctica sobre CubeSats y datos satelitales de la NASA para incendios, calor y sequía: de dónde salen los puntos de calor de MODIS y VIIRS, qué trampas esconden y cómo empezar a analizarlos, con un notebook listo para Colab."
 pubDate: 2026-11-07
 tags: ["Earth Observation", "Remote Sensing", "Data Science"]
 readingTime: 9
@@ -11,7 +11,7 @@ lang: "es"
 translationKey: "space-apps-sucre-2026-talk"
 ---
 
-Esta es la guía de una charla sobre cómo los satélites de la NASA miden incendios, calor y sequía, con ejemplos de Bolivia. Puedes seguirla mientras escuchas la charla o leerla después, con calma.
+Esta es la guía de la charla **CubeSats aplicados a la observación de la Tierra**. Para entender qué aportan los CubeSats, empieza por los datos que ya usamos todos los días: cómo los satélites de la NASA miden incendios, calor y sequía, con ejemplos de Bolivia. Puedes seguirla mientras escuchas la charla o leerla después, con calma.
 
 La idea central es simple: **los números que vas a ver en una hoja de cálculo o en una API vienen de instrumentos reales que orbitan a entre 700 y 830 km de altura.** Si entiendes cómo se midieron, vas a evitar los errores que más tiempo hacen perder.
 
@@ -57,7 +57,15 @@ Los datos que vamos a usar vienen de satélites grandes. Los pequeños cumplen o
 
 Un **CubeSat** es un satélite construido con un estándar de cubos de 10 cm (cada cubo, o "1U", pesa hasta 2 kg). Se combinan en 3U, 6U o 12U, se lanzan en grupo como pasajeros de otros cohetes y los pueden construir universidades y países que recién empiezan. Bolivia también está construyendo el suyo.
 
-Lo que aportan es frecuencia. En órbita baja, un satélite da una vuelta a la Tierra en unos 90 minutos, pero pasa sobre el mismo lugar solo una o dos veces al día. Con muchos satélites pequeños, la revisita pasa a ser diaria o incluso de horas. **Observar seguido durante años es lo que permite detectar tendencias.**
+Lo que aportan es frecuencia. En órbita baja, un satélite da una vuelta a la Tierra en unos 90 minutos, pero pasa sobre el mismo lugar solo una o dos veces al día. Con muchos satélites pequeños, la revisita puede llegar a ser diaria, o de dos veces al día. **Observar seguido durante años es lo que permite detectar tendencias.**
+
+#### CubeSats que ya observan la Tierra
+
+- **PlanetScope (Planet).** Cientos de CubeSats de 3U que fotografían casi toda la tierra firme casi cada día, en visible e infrarrojo cercano, con píxeles de unos 3 m. No tienen banda térmica, así que no ven el calor del fuego. ([Planet](https://docs.planet.com/data/imagery/planetscope/))
+- **OroraTech (Alemania).** Ocho CubeSats de 8U lanzados en 2025 que miden en infrarrojo medio y térmico, con píxeles de unos 200 m. Pasan de madrugada y a media tarde, detectan el fuego a bordo y bajan solo los focos. ([NASA CSDA](https://science.nasa.gov/earth-science/csda/vendor-ororatech/))
+- **Φsat-1 (ESA, 2020).** Un CubeSat de 6U que, según la ESA, fue el primer satélite de observación de la Tierra con IA a bordo: descartaba las imágenes nubladas antes de enviarlas. ([eoPortal](https://www.eoportal.org/satellite-missions/phisat-1))
+
+Suman frecuencia y horarios nuevos, pero no reemplazan a MODIS ni a VIIRS: a estos satélites se los evalúa comparándolos con VIIRS. Además, sus datos son comerciales o experimentales; para empezar, los datos abiertos de la NASA siguen siendo el punto de partida.
 
 ## 2. De la cámara al dato
 
@@ -78,6 +86,8 @@ En color real solo se ve humo. En infrarrojo aparecen los frentes de fuego.
 ![Curvas de emisión de una llama a 1000 K y del suelo a 300 K; la diferencia es enorme a 4 µm y pequeña a 11 µm.](../../assets/blog/space-apps-sucre-2026/d6_planck.png)
 
 El algoritmo aprovecha ese contraste. Compara las dos bandas y compara cada píxel con sus vecinos; si destaca mucho, lo marca como punto de calor. Por eso detecta fuegos mucho más pequeños que el píxel: MODIS ve de forma habitual incendios de unos 1.000 m², y, en condiciones excepcionales, de hasta unos 50 m².
+
+**¿Y en un CubeSat?** Un CubeSat de incendios mira en la misma ventana del infrarrojo medio que MODIS y VIIRS: la física es la misma. Lo que cambia es el tamaño. Con una óptica chica y un detector sin enfriar puede ganar detalle, pero a cambio de una franja más angosta y menos precisión en la temperatura. Diseñar un CubeSat es elegir esos compromisos.
 
 Eso tiene una consecuencia importante: **un punto de calor no es un incendio de 1 km².**
 
@@ -111,6 +121,8 @@ Entre el sensor y tu CSV hay varias etapas:
 Cada columna de la fila del inicio nace en una de esas etapas. La fecha y la hora vienen del reloj del satélite. La latitud y la longitud salen de la geolocalización de L1: dónde estaba el satélite y hacia dónde miraba. `bright_ti4` sale de la calibración de L1. `confidence`, `frp` y `type` los calcula el algoritmo de L2. Ahí se juntan el hardware y el software.
 
 Ustedes empiezan en L2 o L3. Un detalle clave: FIRMS publica datos **casi en tiempo real** (unas 3 horas después del paso) y meses después un **archivo estándar** reprocesado. **Para tendencias usen el archivo estándar.**
+
+**¿Y en un CubeSat?** Recorre exactamente el mismo camino: mide, guarda, baja a una estación terrena y pasa por L0, L1 y L2. La diferencia es que todo es más chico: menos memoria, menos tiempo de contacto con la estación, menos ancho de banda. Por eso cada vez más satélites pequeños procesan a bordo y bajan solo lo útil: el punto de calor, no la imagen completa.
 
 Ojo con las fechas: el archivo estándar por país llega hasta el 31 de diciembre de 2025. La temporada de incendios de 2026 solo está en los datos casi en tiempo real, que se piden por la API con una clave gratuita. Si los suman a la serie, márquenlos como provisionales; si no, terminen la serie en 2025.
 
@@ -167,6 +179,8 @@ Ideas para empezar:
 4. **Calcular factores por región y por mes** (Chaco, Chiquitanía, Amazonía).
 5. **Validar con años que no usaste para calibrar.** En el notebook, un factor por mes calculado con 2012–2019 predice el total de 2020–2025 con un error de +3,8 %.
 6. **No sumar detecciones directamente, y documentar el método.** Un valor armonizado es una estimación, no una medición.
+
+**¿Y en un CubeSat?** Una constelación son decenas de sensores pequeños, cada uno un poco distinto. Si unir dos sensores ya es difícil, imagina decenas. Planet, por ejemplo, armoniza sus propios CubeSats contra Landsat, Sentinel-2, MODIS y VIIRS. Lo que aprendes armonizando MODIS y VIIRS es exactamente lo que hace falta para aprovechar las constelaciones de CubeSats.
 
 ### No todo es fuego
 
@@ -263,7 +277,7 @@ Giovanni, Earthdata Search, AppEEARS y `earthaccess` piden una cuenta gratuita d
 - [ ] Escribir tu pregunta en una sola línea.
 - [ ] Pedir tu MAP_KEY de FIRMS, solo si vas a usar datos de 2026.
 
-Los satélites ya hicieron su parte. Ahora te toca a ti descubrir qué está cambiando.
+Los satélites grandes nos dieron 25 años de datos; los CubeSats nos van a dar más ojos, y más seguido. Para aprovecharlos hace falta gente que sepa leer bien los datos. Ahora te toca a ti descubrir qué está cambiando.
 
 Si quieres seguir conversando sobre satélites, datos o tu proyecto, conectemos en **[LinkedIn](https://www.linkedin.com/in/chrisconchari/)**.
 
