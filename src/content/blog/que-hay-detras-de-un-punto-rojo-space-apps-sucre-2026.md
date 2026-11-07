@@ -15,10 +15,10 @@ Esta es la guía de la charla que di para los equipos del **NASA Space Apps Chal
 
 La idea central es simple: **los números que vas a ver en una hoja de cálculo o en una API vienen de instrumentos reales que orbitan a entre 700 y 830 km de altura.** Si entiendes cómo se midieron, vas a evitar los errores que más tiempo hacen perder en 48 horas.
 
-Está pensada para los dos desafíos en los que van a trabajar los equipos de Sucre:
+Está pensada para lo que pidieron los organizadores: software y herramientas visuales que analicen temperatura, sequías o incendios con datos de la NASA. Eso incluye dos tareas que vamos a ver con detalle:
 
-- **Be An Earth System Trend Detective!**: encontrar qué está cambiando (temperatura, sequías, incendios), dónde y cuánto, con datos de la NASA.
-- **Harmonization of MODIS and VIIRS Hot Spots**: unir los puntos de calor de dos instrumentos distintos en un solo registro coherente.
+- **Encontrar qué está cambiando** (temperatura, sequías, incendios), dónde y cuánto, y decir si el cambio es significativo.
+- **Unir los puntos de calor de dos instrumentos distintos** en un solo registro coherente.
 
 Si quieres ir directo a la práctica, al final hay un **[notebook listo para Colab](#4-el-llamado-a-la-acción)** que descarga los datos de Bolivia y reproduce todas las gráficas de esta página.
 
@@ -42,14 +42,14 @@ El resto de la página explica de dónde sale cada uno de esos números.
 
 ## 1. La revolución de la observación de la Tierra
 
-Los dos desafíos usan datos de dos instrumentos de la NASA:
+Los incendios que vas a analizar los miden dos instrumentos de la NASA:
 
 - **MODIS**, en Terra (desde 2000) y Aqua (desde 2002). Píxel de 1 km para incendios.
 - **VIIRS**, en Suomi NPP (desde 2012), NOAA-20 y NOAA-21. Píxel de 375 m.
 
 Son satélites grandes: Terra, lanzado en 1999, pesa unas 5 toneladas. Están muy bien calibrados y suman más de 20 años de datos, y por eso son la referencia.
 
-Y hay noticias de este mismo mes. **Suomi NPP dejó de entregar datos nuevos el 2 de noviembre de 2026**, y **MODIS está en sus últimos meses**: la NASA planea cerrar Terra hacia inicios de 2027. Los datos históricos siguen disponibles, pero el registro de 25 años ahora depende de unir bien ambos sensores. Eso es justamente el desafío de armonización.
+Y hay noticias de este mismo mes. **Suomi NPP dejó de entregar datos nuevos el 2 de noviembre de 2026**, y **MODIS está en sus últimos meses**: la NASA planea cerrar Terra hacia inicios de 2027. Los datos históricos siguen disponibles, pero el registro de 25 años ahora depende de unir bien ambos sensores. Unirlos bien da para un gran proyecto.
 
 ### ¿Y los CubeSats?
 
@@ -132,7 +132,7 @@ Hay dos errores posibles, y conviene pensarlos por separado.
 
 Dos detalles más. De noche la detección es más sensible, pero hay menos fuego activo: analiza día y noche por separado (columna `daynight`). Y la hora de paso de Terra se está corriendo: cada año pasa un poco más temprano, más lejos del pico de la tarde. Una serie hecha solo con Terra puede mostrar menos fuego aunque nada haya cambiado en el suelo. Para tendencias, separa Terra y Aqua (columna `satellite`) y compáralas.
 
-Para el desafío de tendencias esto importa mucho. Los puntos de FIRMS no te dicen si un día sin puntos estuvo despejado y sin fuego, o nublado. **Un día sin puntos no es un cero.** Si necesitas esa diferencia, la máscara de incendios L2 clasifica cada píxel como nube, agua, suelo sin fuego o fuego.
+Si vas a buscar tendencias, esto importa mucho. Los puntos de FIRMS no te dicen si un día sin puntos estuvo despejado y sin fuego, o nublado. **Un día sin puntos no es un cero.** Si necesitas esa diferencia, la máscara de incendios L2 clasifica cada píxel como nube, agua, suelo sin fuego o fuego.
 
 ### Dos instrumentos, dos maneras de ver
 
@@ -153,7 +153,7 @@ Para comparar los dos sensores, la mejor pareja es **Aqua con VIIRS**: pasan cas
 
 ### Un cambio de sensor parece una tendencia
 
-Esta es la trampa más importante de los dos desafíos. Si sumas los puntos de MODIS y VIIRS, en 2012 "aparece" muchísimo más fuego en Bolivia:
+Esta es la trampa más importante de todo el hackatón. Si sumas los puntos de MODIS y VIIRS, en 2012 "aparece" muchísimo más fuego en Bolivia:
 
 ![Puntos de calor por año en Bolivia: la suma de MODIS y VIIRS da un salto en 2012 que no corresponde a más fuego, sino a la entrada de VIIRS.](../../assets/blog/space-apps-sucre-2026/d11_salto_sensor.png)
 
@@ -170,11 +170,11 @@ Ideas para empezar:
 
 ### No todo es fuego
 
-El desafío de tendencias va mucho más allá de los incendios. Este es un ejemplo con temperatura:
+Los organizadores también pidieron temperatura y sequía, no solo incendios. Este es un ejemplo con temperatura:
 
 ![Diferencia de la temperatura anual de un punto de la Chiquitanía con su promedio 1991–2020. Tendencia de +0,35 °C por década, Mann-Kendall p = 0,002.](../../assets/blog/space-apps-sucre-2026/d12_anomalia_temperatura.png)
 
-Cada barra es un año menos el promedio de 1991–2020. A esa diferencia se le llama **anomalía**: quita lo "normal" y deja ver el cambio. La tendencia es de **+0,35 °C por década**, y la prueba de Mann-Kendall da **p = 0,002**: es muy poco probable que sea solo azar. Eso es justo lo que pide el desafío: cuánto cambia y si el cambio es significativo.
+Cada barra es un año menos el promedio de 1991–2020. A esa diferencia se le llama **anomalía**: quita lo "normal" y deja ver el cambio. La tendencia es de **+0,35 °C por década**, y la prueba de Mann-Kendall da **p = 0,002**: es muy poco probable que sea solo azar. Eso es lo que hace fuerte a un análisis de tendencias: cuánto cambia y si el cambio es significativo.
 
 Una pregunta que conviene hacerse siempre: **¿esto lo midió un satélite o lo calculó un modelo?** Esta serie viene de NASA POWER, que usa un modelo (el reanálisis MERRA-2) para combinar millones de mediciones de satélites, estaciones y globos, y estimar la temperatura del aire sin huecos. Es cómodo y largo, pero es una estimación. Lo que un satélite sí mide es la temperatura de la **superficie** (MODIS LST), que no es la del aire. Y ahí vuelve la trampa de la órbita: como Terra pasa cada vez más temprano, su temperatura de superficie puede mostrar un enfriamiento que no existe.
 
@@ -199,10 +199,10 @@ Una **sequía** no es una sola variable: es menos lluvia, suelo más seco, veget
 
 El hardware ya hizo su parte: capturó el dato y lo bajó a una estación terrena. Ahora les toca a ustedes.
 
-### ¿Qué desafío elegir?
+### ¿Qué pueden construir?
 
-- **Armonización de MODIS y VIIRS.** Un solo conjunto de datos (FIRMS). Ideal para equipos fuertes en web y visualización. *Ejemplo:* un calendario semanal de quema por municipio, con "hubo fuego sí o no", calibrado con el periodo en que funcionan ambos sensores.
-- **Trend Detective.** Varias variables y algo de estadística. *Ejemplo:* "¿se adelantó la temporada de incendios en la Chiquitanía?", con anomalías mensuales de FIRMS y lluvia de IMERG. La página oficial pide cuatro cosas: elegir variables, bajarlas para una región, graficar una serie larga y probar si la tendencia es significativa (por ejemplo, con Mann-Kendall). **Gráfica, tendencia y significancia: las tres.** Y una tendencia que no resulta significativa también es un resultado válido.
+- **Unir dos sensores.** MODIS y VIIRS en un solo registro de quema, todo desde FIRMS. Ideal para equipos fuertes en web y visualización. *Ejemplo:* un calendario semanal de quema por municipio, con "hubo fuego sí o no", calibrado con el periodo en que funcionan ambos sensores.
+- **Encontrar qué está cambiando.** Temperatura, sequía o fuego a lo largo de los años, con varias variables y algo de estadística. *Ejemplo:* "¿se adelantó la temporada de incendios en la Chiquitanía?", con anomalías mensuales de FIRMS y lluvia de IMERG. Elige variables, bájalas para una región, grafica una serie larga y prueba si la tendencia es significativa (por ejemplo, con Mann-Kendall). **Gráfica, tendencia y significancia: las tres.** Y una tendencia que no resulta significativa también es un resultado válido.
 
 Un buen equipo necesita a alguien que programe, a alguien que entienda el problema (biología, agronomía, gestión de riesgos) y a alguien que cuente la historia. **No necesitas programar para empezar:** Giovanni y Worldview hacen gráficas y mapas desde el navegador.
 
@@ -227,7 +227,7 @@ Tómalo como punto de partida, no como solución.
 
 ### Herramientas
 
-Empieza por lo oficial: la pestaña **Resources** de tu desafío en [spaceappschallenge.org](https://www.spaceappschallenge.org/2026/challenges/) tiene los datos y herramientas que recomiendan los organizadores. Lo que sigue son herramientas de la NASA que la complementan.
+Empieza por lo oficial: la pestaña **Resources** de tu reto en [spaceappschallenge.org](https://www.spaceappschallenge.org/2026/challenges/) tiene los datos y herramientas que recomiendan los organizadores. Lo que sigue son herramientas de la NASA que la complementan.
 
 **Para ver:**
 
@@ -236,7 +236,7 @@ Empieza por lo oficial: la pestaña **Resources** de tu desafío en [spaceappsch
 
 **Para graficar sin programar:**
 
-- **[Giovanni](https://giovanni.gsfc.nasa.gov)**: series de tiempo y mapas desde el navegador. Tiene casi todas las variables de Trend Detective: MERRA-2, GLDAS, AIRS, IMERG y MODIS.
+- **[Giovanni](https://giovanni.gsfc.nasa.gov)**: series de tiempo y mapas desde el navegador. Tiene casi todas las variables para buscar tendencias: MERRA-2, GLDAS, AIRS, IMERG y MODIS.
 
 **Para descargar y programar:**
 
@@ -258,7 +258,7 @@ Giovanni, Earthdata Search, AppEEARS y `earthaccess` piden una cuenta gratuita d
 
 ### Antes del 14 de noviembre
 
-- [ ] Registrarte en [spaceappschallenge.org](https://www.spaceappschallenge.org/2026/) y unirte al desafío (equipos de hasta 6 personas).
+- [ ] Registrarte en [spaceappschallenge.org](https://www.spaceappschallenge.org/2026/) y armar tu equipo (hasta 6 personas).
 - [ ] Crear tu cuenta en [Earthdata Login](https://urs.earthdata.nasa.gov) (cada integrante, la suya).
 - [ ] Abrir el notebook en Colab y correrlo una vez.
 - [ ] Escribir tu pregunta en una sola línea.
