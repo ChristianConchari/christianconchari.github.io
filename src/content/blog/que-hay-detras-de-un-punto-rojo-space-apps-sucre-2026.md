@@ -114,7 +114,7 @@ Ustedes empiezan en L2 o L3. Un detalle clave: FIRMS publica datos **casi en tie
 
 Ojo con las fechas: el archivo estándar por país llega hasta el 31 de diciembre de 2025. La temporada de incendios de 2026 solo está en los datos casi en tiempo real, que se piden por la API con una clave gratuita. Si los suman a la serie, márquenlos como provisionales; si no, terminen la serie en 2025.
 
-## 3. El desafío de los datos espaciales
+## 3. Lo difícil de los datos espaciales
 
 ### Lo que el satélite no ve
 
