@@ -61,11 +61,11 @@ Lo que aportan es frecuencia. En órbita baja, un satélite da una vuelta a la T
 
 #### CubeSats que ya observan la Tierra
 
-- **PlanetScope (Planet).** Cientos de CubeSats de 3U que fotografían casi toda la tierra firme casi cada día, en visible e infrarrojo cercano, con píxeles de unos 3 m. No tienen banda térmica, así que no ven el calor del fuego. ([Planet](https://docs.planet.com/data/imagery/planetscope/))
+- **PlanetScope (Planet).** Una flota de CubeSats de 3U que fotografían casi toda la tierra firme casi cada día, en visible e infrarrojo cercano, con píxeles de unos 3 m. No tienen banda térmica, así que no ven el calor del fuego. ([Planet](https://docs.planet.com/data/imagery/planetscope/))
 - **OroraTech (Alemania).** Ocho CubeSats de 8U lanzados en 2025 que miden en infrarrojo medio y térmico, con píxeles de unos 200 m. Pasan de madrugada y a media tarde, detectan el fuego a bordo y bajan solo los focos. ([NASA CSDA](https://science.nasa.gov/earth-science/csda/vendor-ororatech/))
 - **Φsat-1 (ESA, 2020).** Un CubeSat de 6U que, según la ESA, fue el primer satélite de observación de la Tierra con IA a bordo: descartaba las imágenes nubladas antes de enviarlas. ([eoPortal](https://www.eoportal.org/satellite-missions/phisat-1))
 
-Suman frecuencia y horarios nuevos, pero no reemplazan a MODIS ni a VIIRS: a estos satélites se los evalúa comparándolos con VIIRS. Además, sus datos son comerciales o experimentales; para empezar, los datos abiertos de la NASA siguen siendo el punto de partida.
+Suman frecuencia y horarios nuevos, pero no reemplazan a MODIS ni a VIIRS: a OroraTech, por ejemplo, la ESA la evaluó comparándola con VIIRS. Además, sus datos son comerciales o experimentales; para empezar, los datos abiertos de la NASA siguen siendo el punto de partida.
 
 ## 2. De la cámara al dato
 
