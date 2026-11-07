@@ -15,7 +15,7 @@ Esta es la guía de la charla que di para los equipos del **NASA Space Apps Chal
 
 La idea central es simple: **los números que vas a ver en una hoja de cálculo o en una API vienen de instrumentos reales que orbitan a entre 700 y 830 km de altura.** Si entiendes cómo se midieron, vas a evitar los errores que más tiempo hacen perder en 48 horas.
 
-Está pensada para lo que pidieron los organizadores: software y herramientas visuales que analicen temperatura, sequías o incendios con datos de la NASA. Eso incluye dos tareas que vamos a ver con detalle:
+La idea del hackatón es construir software y herramientas visuales que analicen temperatura, sequías o incendios con datos de la NASA. Eso incluye dos tareas que vamos a ver con detalle:
 
 - **Encontrar qué está cambiando** (temperatura, sequías, incendios), dónde y cuánto, y decir si el cambio es significativo.
 - **Unir los puntos de calor de dos instrumentos distintos** en un solo registro coherente.
@@ -170,7 +170,7 @@ Ideas para empezar:
 
 ### No todo es fuego
 
-Los organizadores también pidieron temperatura y sequía, no solo incendios. Este es un ejemplo con temperatura:
+No todo es fuego: también cambian la temperatura y la sequía. Este es un ejemplo con temperatura:
 
 ![Diferencia de la temperatura anual de un punto de la Chiquitanía con su promedio 1991–2020. Tendencia de +0,35 °C por década, Mann-Kendall p = 0,002.](../../assets/blog/space-apps-sucre-2026/d12_anomalia_temperatura.png)
 
@@ -227,7 +227,7 @@ Tómalo como punto de partida, no como solución.
 
 ### Herramientas
 
-Empieza por lo oficial: la pestaña **Resources** de tu reto en [spaceappschallenge.org](https://www.spaceappschallenge.org/2026/challenges/) tiene los datos y herramientas que recomiendan los organizadores. Lo que sigue son herramientas de la NASA que la complementan.
+Empieza por lo oficial: la pestaña **Resources** de tu reto en [spaceappschallenge.org](https://www.spaceappschallenge.org/2026/challenges/) tiene los datos y herramientas que recomienda la NASA para cada reto. Lo que sigue son herramientas de la NASA que la complementan.
 
 **Para ver:**
 
