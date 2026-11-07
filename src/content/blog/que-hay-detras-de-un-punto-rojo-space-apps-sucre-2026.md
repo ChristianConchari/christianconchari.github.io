@@ -1,8 +1,8 @@
 ---
 title: "¿Qué hay detrás de un punto rojo en el mapa? Cómo los satélites de la NASA miden incendios, calor y sequía"
-description: "Guía de la charla para los equipos del NASA Space Apps Challenge Sucre 2026: de dónde salen los puntos de calor de MODIS y VIIRS, qué trampas esconden y cómo empezar a analizarlos, con un notebook listo para Colab."
+description: "Guía práctica sobre los datos satelitales de la NASA para incendios, calor y sequía: de dónde salen los puntos de calor de MODIS y VIIRS, qué trampas esconden y cómo empezar a analizarlos, con un notebook listo para Colab."
 pubDate: 2026-11-07
-tags: ["Earth Observation", "NASA Space Apps", "Data Science"]
+tags: ["Earth Observation", "Remote Sensing", "Data Science"]
 readingTime: 9
 featured: true
 cover: "../../assets/blog/space-apps-sucre-2026/d1_portada_chiquitania_2024-08-28.jpg"
@@ -11,11 +11,11 @@ lang: "es"
 translationKey: "space-apps-sucre-2026-talk"
 ---
 
-Esta es la guía de la charla que di para los equipos del **NASA Space Apps Challenge Sucre 2026**, invitado por la Fundación de Investigación Aeroespacial en Bolivia (FIAB). Puedes seguirla mientras escuchas la charla o leerla después, con calma, antes del hackatón del 14 y 15 de noviembre.
+Esta es la guía de una charla sobre cómo los satélites de la NASA miden incendios, calor y sequía, con ejemplos de Bolivia. Puedes seguirla mientras escuchas la charla o leerla después, con calma.
 
-La idea central es simple: **los números que vas a ver en una hoja de cálculo o en una API vienen de instrumentos reales que orbitan a entre 700 y 830 km de altura.** Si entiendes cómo se midieron, vas a evitar los errores que más tiempo hacen perder en 48 horas.
+La idea central es simple: **los números que vas a ver en una hoja de cálculo o en una API vienen de instrumentos reales que orbitan a entre 700 y 830 km de altura.** Si entiendes cómo se midieron, vas a evitar los errores que más tiempo hacen perder.
 
-La idea del hackatón es construir software y herramientas visuales que analicen temperatura, sequías o incendios con datos de la NASA. Eso incluye dos tareas que vamos a ver con detalle:
+Si quieres construir software o herramientas visuales que analicen temperatura, sequías o incendios con datos de la NASA, esta guía es para ti. Vamos a ver dos tareas con detalle:
 
 - **Encontrar qué está cambiando** (temperatura, sequías, incendios), dónde y cuánto, y decir si el cambio es significativo.
 - **Unir los puntos de calor de dos instrumentos distintos** en un solo registro coherente.
@@ -53,7 +53,7 @@ Y hay noticias de este mismo mes. **Suomi NPP dejó de entregar datos nuevos el 
 
 ### ¿Y los CubeSats?
 
-Los datos del hackatón vienen de satélites grandes. Los pequeños cumplen otro papel.
+Los datos que vamos a usar vienen de satélites grandes. Los pequeños cumplen otro papel.
 
 Un **CubeSat** es un satélite construido con un estándar de cubos de 10 cm (cada cubo, o "1U", pesa hasta 2 kg). Se combinan en 3U, 6U o 12U, se lanzan en grupo como pasajeros de otros cohetes y los pueden construir universidades y países que recién empiezan. Bolivia también está construyendo el suyo.
 
@@ -153,7 +153,7 @@ Para comparar los dos sensores, la mejor pareja es **Aqua con VIIRS**: pasan cas
 
 ### Un cambio de sensor parece una tendencia
 
-Esta es la trampa más importante de todo el hackatón. Si sumas los puntos de MODIS y VIIRS, en 2012 "aparece" muchísimo más fuego en Bolivia:
+Esta es la trampa más importante al trabajar con estos datos. Si sumas los puntos de MODIS y VIIRS, en 2012 "aparece" muchísimo más fuego en Bolivia:
 
 ![Puntos de calor por año en Bolivia: la suma de MODIS y VIIRS da un salto en 2012 que no corresponde a más fuego, sino a la entrada de VIIRS.](../../assets/blog/space-apps-sucre-2026/d11_salto_sensor.png)
 
@@ -227,7 +227,7 @@ Tómalo como punto de partida, no como solución.
 
 ### Herramientas
 
-Empieza por lo oficial: la pestaña **Resources** de tu reto en [spaceappschallenge.org](https://www.spaceappschallenge.org/2026/challenges/) tiene los datos y herramientas que recomienda la NASA para cada reto. Lo que sigue son herramientas de la NASA que la complementan.
+Todas son herramientas oficiales y gratuitas de la NASA, agrupadas por lo que quieres hacer.
 
 **Para ver:**
 
@@ -247,7 +247,7 @@ Empieza por lo oficial: la pestaña **Resources** de tu reto en [spaceappschalle
 
 Giovanni, Earthdata Search, AppEEARS y `earthaccess` piden una cuenta gratuita de [Earthdata Login](https://urs.earthdata.nasa.gov). FIRMS por país y NASA POWER no piden nada.
 
-### Seis consejos para las 48 horas
+### Seis consejos para empezar
 
 1. **Una pregunta, una región y una variable para empezar.** "¿Aumentó la temporada de incendios en la Chiquitanía entre 2001 y 2025?" funciona. "Analizar el cambio climático" no.
 2. **Quita la temporada.** Trabaja con anomalías. En Bolivia la temporada seca va de julio a octubre, con el pico de incendios en agosto y septiembre.
@@ -256,17 +256,14 @@ Giovanni, Earthdata Search, AppEEARS y `earthaccess` piden una cuenta gratuita d
 5. **Tendencia y significancia.** Para la significancia, Mann-Kendall estacional con la pendiente de Sen, como en el notebook; si pruebas muchas regiones a la vez, corrige por comparaciones múltiples. Y si la tendencia no resulta significativa, también es un resultado.
 6. **Escribe tus supuestos y haz una gráfica que cuente la historia.** Un método honesto convence más que un número espectacular, y una sola gráfica bien hecha vale más que diez.
 
-### Antes del 14 de noviembre
+### Para empezar hoy
 
-- [ ] Registrarte en [spaceappschallenge.org](https://www.spaceappschallenge.org/2026/) y armar tu equipo (hasta 6 personas).
-- [ ] Crear tu cuenta en [Earthdata Login](https://urs.earthdata.nasa.gov) (cada integrante, la suya).
+- [ ] Crear tu cuenta gratuita en [Earthdata Login](https://urs.earthdata.nasa.gov).
 - [ ] Abrir el notebook en Colab y correrlo una vez.
 - [ ] Escribir tu pregunta en una sola línea.
 - [ ] Pedir tu MAP_KEY de FIRMS, solo si vas a usar datos de 2026.
 
-La entrega se abre el **sábado 14 a las 9:00** y se cierra el **domingo 15 a las 23:59, hora local**. Hay que entregar para recibir el certificado y entrar al juzgamiento global.
-
-Los satélites ya hicieron su parte. Ahora les toca a ustedes descubrir qué está cambiando. ¡Mucho éxito el 14!
+Los satélites ya hicieron su parte. Ahora te toca a ti descubrir qué está cambiando.
 
 Si quieres seguir conversando sobre satélites, datos o tu proyecto, conectemos en **[LinkedIn](https://www.linkedin.com/in/chrisconchari/)**.
 
