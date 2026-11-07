@@ -77,7 +77,7 @@ En color real solo se ve humo. En infrarrojo aparecen los frentes de fuego.
 
 ![Curvas de emisión de una llama a 1000 K y del suelo a 300 K; la diferencia es enorme a 4 µm y pequeña a 11 µm.](../../assets/blog/space-apps-sucre-2026/d6_planck.png)
 
-El algoritmo aprovecha ese contraste. Compara las dos bandas y compara cada píxel con sus vecinos; si destaca mucho, lo marca como punto de calor. Por eso detecta fuegos mucho más pequeños que el píxel: MODIS ve de forma habitual incendios de unos 1.000 m², y en condiciones ideales de unos 100 m².
+El algoritmo aprovecha ese contraste. Compara las dos bandas y compara cada píxel con sus vecinos; si destaca mucho, lo marca como punto de calor. Por eso detecta fuegos mucho más pequeños que el píxel: MODIS ve de forma habitual incendios de unos 1.000 m², y, en condiciones excepcionales, de hasta unos 50 m².
 
 Eso tiene una consecuencia importante: **un punto de calor no es un incendio de 1 km².**
 
