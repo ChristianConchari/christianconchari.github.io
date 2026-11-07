@@ -415,4 +415,58 @@ function formatDate(date: Date) {
   :global(.dark) .prose-blog :global(hr) {
     border-top-color: var(--color-navy-light);
   }
+
+  .prose-blog :global(ul) {
+    list-style: disc;
+  }
+
+  .prose-blog :global(ol) {
+    list-style: decimal;
+  }
+
+  .prose-blog :global(li:has(> input[type='checkbox'])) {
+    list-style: none;
+    margin-left: -1.25rem;
+  }
+
+  .prose-blog :global(li > input[type='checkbox']) {
+    margin-right: 0.5rem;
+    accent-color: var(--color-primary);
+  }
+
+  .prose-blog :global(img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin: 1.75rem 0 0.5rem;
+  }
+
+  .prose-blog :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    display: block;
+    overflow-x: auto;
+  }
+
+  .prose-blog :global(th),
+  .prose-blog :global(td) {
+    border-bottom: 1px solid #e2e8f0;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    color: var(--color-text-light);
+  }
+
+  .prose-blog :global(th) {
+    font-family: var(--font-mono);
+    font-weight: 600;
+  }
+
+  :global(.dark) .prose-blog :global(th),
+  :global(.dark) .prose-blog :global(td) {
+    border-bottom-color: var(--color-navy-light);
+    color: var(--color-text-dark);
+  }
 </style>
